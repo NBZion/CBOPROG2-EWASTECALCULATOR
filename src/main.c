@@ -42,27 +42,15 @@ void initializeDevices(deviceInfo *d, FILE *devices, FILE *minerals)
     d->deviceName[strcspn(d->deviceName, "\n")] = '\0';                     // Replaces newlines with nullbytes
 
     fscanf(minerals, "%f %f %f %f %f %f %f %f", &d -> minerals.gold,        // Scans for every mineralType
-                                                &d -> minerals.aluminum, 
-                                                &d -> minerals.silver, 
-                                                &d -> minerals.platinum, 
-                                                &d -> minerals.rhodium, 
-                                                &d -> minerals.nickel, 
-                                                &d -> minerals.tin, 
+                                                &d -> minerals.aluminum,
+                                                &d -> minerals.silver,
+                                                &d -> minerals.platinum,
+                                                &d -> minerals.rhodium,
+                                                &d -> minerals.nickel,
+                                                &d -> minerals.tin,
                                                 &d -> minerals.lithium);
 }
 
-void debug(deviceInfo *d)   // Debug function, REMOVE THIS AFTER
-{
-    printf("%s %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f", d -> deviceName, 
-                                                         d -> minerals.gold, 
-                                                         d -> minerals.aluminum, 
-                                                         d -> minerals.silver, 
-                                                         d -> minerals.platinum, 
-                                                         d -> minerals.rhodium, 
-                                                         d -> minerals.nickel, 
-                                                         d -> minerals.tin, 
-                                                         d -> minerals.lithium);
-}
 
 int main()
 {
@@ -84,8 +72,3 @@ int main()
     debug(&devices[20]);    // Helper function only for debugging, REMOVE AFTER
                             // Change index or whatever
 }
-
-
-
-
-
