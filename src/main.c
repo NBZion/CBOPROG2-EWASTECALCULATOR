@@ -68,7 +68,4 @@ int main()
             initializeDevices(&devices[i], fDevices, fMinerals);   // Initializes the deviceName and mineralType for every element of devices[]
         }
     }
-
-    debug(&devices[20]);    // Helper function only for debugging, REMOVE AFTER
-                            // Change index or whatever
 }
