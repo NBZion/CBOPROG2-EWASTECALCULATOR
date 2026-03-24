@@ -39,7 +39,7 @@ void loadFile(User database[], int size, FILE *f) {
 void run() {
     // Initialization
     User userDatabase[MAX_USER];
-    int currentUserSize = 0;
+    int currentUserCount = 0;
     int loginInput;
     char running = 't';
 
