@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include <type_traits>
 #include "login.h"
 
 #define STR_LEN 50
@@ -20,11 +19,17 @@ int loginUser() {
 }
 
 void registerUser() {
-    
+
 }
 
 void saveFile(User database[], int size, FILE *f) {
+    if(f != NULL) {
+        for(int i=0; i<size; i++) {
+            fprintf(f, "%s %s %c\n", database[i].user,database[i].password,database[i].admin);
+        }
 
+        fclose(f);
+    }
 }
 
 void loadFile(User database[], int size, FILE *f) {
@@ -36,13 +41,14 @@ void run() {
     User userDatabase[MAX_USER];
     int currentUserSize = 0;
     int loginInput;
+    char running = 't';
 
     // Create File if doesn't exist
     FILE *fp = fopen("userdatabase.txt", "w");
     fclose(fp);
 
     // While Loop
-    while(1) {
+    while(running == 't') {
 
         scanf("%d", &loginInput);
 
@@ -52,6 +58,8 @@ void run() {
             case 2: // Register
                 break;
             case 3: // Reset Password
+                break;
+            case 4: // Exit
                 break;
         }
     }
