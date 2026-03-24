@@ -2,16 +2,6 @@
 #include <string.h>
 #include "login.h"
 
-#define STR_LEN 50
-#define MAX_USER 10
-
-typedef char String[STR_LEN] ;
-
-typedef struct {
-    String user;
-    String password;
-    char admin; // t if true f if false
-} User;
 
 // Returns 1 if Succesful, Returns 0 If Not
 int loginUser() {
@@ -32,8 +22,12 @@ void saveFile(User database[], int size, FILE *f) {
     }
 }
 
-void loadFile(User database[], int size, FILE *f) {
-
+void loadFile(User database[], int *size, FILE *f) {
+    if(f != NULL) {
+       while(fscanf(f, "%s %s %c", database[*size].user, database[*size].password, database[*size].admin) != EOF){
+          (*size)++;
+       }
+    }
 }
 
 void run() {
@@ -46,6 +40,9 @@ void run() {
     // Create File if doesn't exist
     FILE *fp = fopen("userdatabase.txt", "w");
     fclose(fp);
+
+    // Load Database
+    loadFile(userDatabase, &currentUserCount, fopen("userdatabase.txt", "r"));
 
     // While Loop
     while(running == 't') {
