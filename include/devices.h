@@ -3,9 +3,6 @@
 
 #define MAX_DEVICES 200     // There are 100 devices in the dataset, which means that the admin can only add up to 100 more devices
 
-
-void initializeDevices(deviceInfo *d, FILE *devices, FILE *minerals);
-
 typedef struct mineralType
 {
     float gold;
@@ -24,5 +21,7 @@ typedef struct deviceInfo
     mineralType minerals;   // Minerals contained within the device
     float price;            // Calculated price of minerals contained within the device
 }deviceInfo;
+
+void initializeDevices(deviceInfo *d, FILE *devices, FILE *minerals);
 
 #endif
