@@ -5,7 +5,7 @@
 
 #define KEY "SEGFAULT"
 
-int encrypt(String destination, const String source);
-int decrypt(String destination, const String source);
+void encrypt(String destination, const String source);
+void decrypt(String destination, const String source);
 
 #endif
