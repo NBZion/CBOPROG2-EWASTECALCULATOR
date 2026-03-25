@@ -63,8 +63,10 @@ void registerUser(User database[], int *size) {
 void saveFile(User database[], int size, FILE *f) {
     if(f != NULL) {
         for(int i=0; i<size; i++) {
-            fprintf(f, "%s %s %c\n", database[i].user,database[i].password,database[i].admin); // Change Later to Encrypt
-        }
+            encrypt(encryptedUser, database[i].user);
+            encrypt(encryptedPassword, database[i].password);
+            encryptedAdmin = (database[i].admin - 33 + KEY[0]) % 94 + 33;
+            fprintf(f, "%s %s %c\n", encryptedUser, encryptedPassword, encryptedAdmin);         }
 
         fclose(f);
     }
