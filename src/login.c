@@ -4,9 +4,38 @@
 
 
 // Returns 1 if Succesful, Returns 0 If Not
-int loginUser() {
+int loginUser(User database[], int size) {
+    String userInput, passwordInput;
+    int userIndex = -1;
+    int correctPassword = 0;
 
-    return 0;
+    printf("What is your Username?\n");
+    scanf("%s", userInput);
+    // Search for Username
+    for(int i=0; i<size; i++) {
+        if(strcmp(database[i].user, userInput) == 0) {
+            userIndex=i;
+        }
+    }
+
+    if(userIndex != -1) {
+        printf("Password: ");
+        scanf("%s", passwordInput);
+
+        if(strcmp(database[userIndex].password, passwordInput) == 0) {
+            correctPassword=1;
+        }else {
+            printf("Incorrect Password\n");
+        }
+    }else {
+        printf("Username Not Found\n");
+    }
+
+    if(correctPassword) {
+        return userIndex;
+    }else {
+        return -1;
+    }
 }
 
 void registerUser(User database[], int *size) {
@@ -27,14 +56,14 @@ void registerUser(User database[], int *size) {
         strcpy(database[*size].password, passwordInput);
         database[*size].admin = 'f';
     }
-    *size++;
+    (*size)++;
     saveFile(database, *size, fopen("userdatabase.txt", "w"));
 }
 
 void saveFile(User database[], int size, FILE *f) {
     if(f != NULL) {
         for(int i=0; i<size; i++) {
-            fprintf(f, "%s %s %c\n", database[i].user,database[i].password,database[i].admin);
+            fprintf(f, "%s %s %c\n", database[i].user,database[i].password,database[i].admin); // Change Later to Encrypt
         }
 
         fclose(f);
@@ -43,10 +72,7 @@ void saveFile(User database[], int size, FILE *f) {
 
 void loadFile(User database[], int *size, FILE *f) {
     if(f != NULL) {
-       while(fscanf(f, "%s %s %c", database[*size].user, database[*size].password, &(database[*size].admin)) != EOF){
-           // DEBUG
-           printf("%s %s %c", database[*size].user, database[*size].password, database[*size].admin);
-           // END DEBUG
+       while(fscanf(f, "%s %s %c", database[*size].user, database[*size].password, &(database[*size].admin)) != EOF){ // Change Later to Decrypt
            (*size)++;
        }
     }
@@ -74,6 +100,10 @@ void run() {
 
         switch(loginInput) {
             case 1: //Login
+                int currentUser = loginUser(userDatabase, currentUserCount);
+                if(currentUser != -1) {
+                    // Do Login Logic..
+                }
                 break;
             case 2: // Register
                 registerUser(userDatabase, &currentUserCount);
@@ -81,6 +111,7 @@ void run() {
             case 3: // Reset Password
                 break;
             case 4: // Exit
+                running = 'f';
                 break;
         }
     }
