@@ -75,6 +75,7 @@ void loadFile(User database[], int *size, FILE *f) {
        while(fscanf(f, "%s %s %c", database[*size].user, database[*size].password, &(database[*size].admin)) != EOF){ // Change Later to Decrypt
            (*size)++;
        }
+       fclose(f);
     }
 }
 
