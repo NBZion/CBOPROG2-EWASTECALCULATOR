@@ -20,11 +20,11 @@ void registerUser(User database[], int *size) {
     if(*size < 1) {
         strcpy(database[0].user, userInput);
         strcpy(database[0].password, passwordInput);
-        database[0].admin = 0;
+        database[0].admin = 'f';
     }else {
         strcpy(database[*size].user, userInput);
         strcpy(database[*size].password, passwordInput);
-        database[*size].admin = 0;
+        database[*size].admin = 'f';
     }
     *size++;
     saveFile(database, *size, fopen("userdatabase.txt", "w"));
@@ -42,8 +42,11 @@ void saveFile(User database[], int size, FILE *f) {
 
 void loadFile(User database[], int *size, FILE *f) {
     if(f != NULL) {
-       while(fscanf(f, "%s %s %c", database[*size].user, database[*size].password, database[*size].admin) != EOF){
-          (*size)++;
+       while(fscanf(f, "%s %s %c", database[*size].user, database[*size].password) != EOF){
+           // DEBUG
+           printf("%s %s %c", database[*size].user, database[*size].password, database[*size].admin);
+           // END DEBUG
+           (*size)++;
        }
     }
 }
