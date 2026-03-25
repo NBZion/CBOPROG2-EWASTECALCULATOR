@@ -6,6 +6,7 @@
 // Returns 1 if Succesful, Returns 0 If Not
 int loginUser() {
 
+    return 0;
 }
 
 void registerUser(User database[], int *size) {
@@ -42,7 +43,7 @@ void saveFile(User database[], int size, FILE *f) {
 
 void loadFile(User database[], int *size, FILE *f) {
     if(f != NULL) {
-       while(fscanf(f, "%s %s %c", database[*size].user, database[*size].password) != EOF){
+       while(fscanf(f, "%s %s %c", database[*size].user, database[*size].password, &(database[*size].admin)) != EOF){
            // DEBUG
            printf("%s %s %c", database[*size].user, database[*size].password, database[*size].admin);
            // END DEBUG
@@ -59,8 +60,9 @@ void run() {
     char running = 't';
 
     // Create File if doesn't exist
-    FILE *fp = fopen("userdatabase.txt", "w");
-    fclose(fp);
+    if(fopen("userdatabase.txt", "r") == NULL) {
+        fopen("userdatabase.txt","w");
+    }
 
     // Load Database
     loadFile(userDatabase, &currentUserCount, fopen("userdatabase.txt", "r"));
