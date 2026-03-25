@@ -14,6 +14,7 @@ typedef struct {
     char admin; // t if true f if false
 } User;
 
+void registerUser(User database[], int *size);
 void saveFile(User database[], int size, FILE *f);
 void loadFile(User database[], int *size, FILE *f);
 void run();

@@ -8,8 +8,26 @@ int loginUser() {
 
 }
 
-void registerUser() {
+void registerUser(User database[], int *size) {
+    String userInput, passwordInput;
 
+    printf("Input New User: ");
+    scanf("%s", userInput);
+    printf("Input New Password: ");
+    scanf("%s", passwordInput);
+
+    // Update Database
+    if(*size < 1) {
+        strcpy(database[0].user, userInput);
+        strcpy(database[0].password, passwordInput);
+        database[0].admin = 0;
+    }else {
+        strcpy(database[*size].user, userInput);
+        strcpy(database[*size].password, passwordInput);
+        database[*size].admin = 0;
+    }
+    *size++;
+    saveFile(database, *size, fopen("userdatabase.txt", "w"));
 }
 
 void saveFile(User database[], int size, FILE *f) {
@@ -53,6 +71,7 @@ void run() {
             case 1: //Login
                 break;
             case 2: // Register
+                registerUser(userDatabase, &currentUserCount);
                 break;
             case 3: // Reset Password
                 break;
