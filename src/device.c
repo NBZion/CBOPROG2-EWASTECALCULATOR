@@ -52,7 +52,7 @@ void initializeDevices(deviceInfo *d, FILE *devices, FILE *minerals)
 }
 
 
-int main()
+int mifsadjfdasj()
 {
     FILE *fDevices;
     FILE *fMinerals;
