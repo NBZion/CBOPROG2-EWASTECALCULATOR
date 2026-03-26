@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <devices.h>
 
 void initializeDevices(deviceInfo *d, FILE *devices, FILE *minerals)
 {
