@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "login.h"
-
+#include "encrypt.h"
 
 // Returns 1 if Succesful, Returns 0 If Not
 int loginUser(User database[], int size) {
@@ -61,6 +61,8 @@ void registerUser(User database[], int *size) {
 }
 
 void saveFile(User database[], int size, FILE *f) {
+    String encryptedUser, encryptedPassword;
+    char encryptedAdmin;
     if(f != NULL) {
         for(int i=0; i<size; i++) {
             encrypt(encryptedUser, database[i].user);
@@ -73,11 +75,17 @@ void saveFile(User database[], int size, FILE *f) {
 }
 
 void loadFile(User database[], int *size, FILE *f) {
+    *size=0;
     if(f != NULL) {
-       while(fscanf(f, "%s %s %c", database[*size].user, database[*size].password, &(database[*size].admin)) != EOF){ // Change Later to Decrypt
-           (*size)++;
-       }
-       fclose(f);
+        String encryptedUser, encryptedPassword;
+        char encryptedAdmin;
+        while(fscanf(f, "%s %s %c", encryptedUser, encryptedPassword, &encryptedAdmin) != EOF){ 
+            decrypt(database[*size].user, encryptedUser);
+            decrypt(database[*size].password, encryptedPassword);
+            database[*size].admin = (encryptedAdmin - 33 - KEY[0] + 94) % 94 + 33;
+            (*size)++;
+        }
+        fclose(f);
     }
 }
 
@@ -93,11 +101,11 @@ void run() {
         fopen("userdatabase.txt","w");
     }
 
-    // Load Database
-    loadFile(userDatabase, &currentUserCount, fopen("userdatabase.txt", "r"));
 
     // While Loop
     while(running == 't') {
+        // Load Database
+        loadFile(userDatabase, &currentUserCount, fopen("userdatabase.txt", "r"));
 
         scanf("%d", &loginInput);
 
@@ -112,6 +120,9 @@ void run() {
                 registerUser(userDatabase, &currentUserCount);
                 break;
             case 3: // Reset Password
+                for(int i=0; i<currentUserCount; i++) {
+                    printf("%s %s %c", userDatabase[i].user,userDatabase[i].password, userDatabase[i].admin);
+                }
                 break;
             case 4: // Exit
                 running = 'f';
