@@ -34,15 +34,6 @@ void pLoop(User currentUser)
     }
     loadDevice(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
 
-    // DEBUG
-    for(int i=0; i<deviceDatabaseCount; i++) {
-        printf("User: %s\n",deviceDatabase[i].name);
-        printf("Devices: ");
-        for(int j=0; j<deviceDatabase[i].deviceCount;j++) {
-            printf("%s ", deviceDatabase[i].devices[j].deviceName);
-        }
-        printf("\n");
-    }
 
     return;
 }
