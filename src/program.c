@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include "program.h"
+#include "login.h"
 
-int pLoop()
+void pLoop(User currentUser)
 {
-
-    return 0;
+    printf("Welcome %s!\n", currentUser.user);
+    return;
 }

@@ -2,6 +2,7 @@
 #include <string.h>
 #include "login.h"
 #include "encrypt.h"
+#include "program.h"
 
 // Returns 1 if Succesful, Returns 0 If Not
 int loginUser(User database[], int size) {
@@ -127,7 +128,7 @@ void run() {
             case 1: //Login
                 currentUser = loginUser(userDatabase, currentUserCount);
                 if(currentUser != -1) {
-                    // Do Login Logic..
+                    pLoop(userDatabase[currentUser]);
                 }
                 break;
             case 2: // Register
