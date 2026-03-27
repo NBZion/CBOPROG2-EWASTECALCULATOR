@@ -34,5 +34,6 @@ typedef struct {
 void initializeDevices(deviceInfo *d, FILE *devices, FILE *minerals, int *deviceCount);
 void loadDevice(UserDevice database[], int *size, FILE *f);
 void saveDevice(UserDevice database[], int *size, FILE *f);
+void fillDevices(UserDevice userData, deviceInfo info[]);
 
 #endif
