@@ -11,8 +11,8 @@ void pLoop(User currentUser)
     // Device initialization
     FILE *fDevices;
     FILE *fMinerals;
-    fDevices = fopen("devices.txt", "r");
-    fMinerals = fopen("minerals.txt", "r");
+    fDevices = fopen("data/devices.txt", "r");
+    fMinerals = fopen("data/minerals.txt", "r");
 
     deviceInfo devices[MAX_DEVICES];
 
