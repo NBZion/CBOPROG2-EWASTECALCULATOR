@@ -40,24 +40,37 @@ int loginUser(User database[], int size) {
 
 void registerUser(User database[], int *size) {
     String userInput, passwordInput;
+    char foundUser = 'f';
 
     printf("Input New User: ");
     scanf("%s", userInput);
-    printf("Input New Password: ");
-    scanf("%s", passwordInput);
-
-    // Update Database
-    if(*size < 1) {
-        strcpy(database[0].user, userInput);
-        strcpy(database[0].password, passwordInput);
-        database[0].admin = 'f';
-    }else {
-        strcpy(database[*size].user, userInput);
-        strcpy(database[*size].password, passwordInput);
-        database[*size].admin = 'f';
+    // Check if user already Exists
+    for(int i=0; i<*size; i++) {
+        if(strcmp(userInput, database[i].user) == 0) {
+            foundUser = 't';
+        }
     }
-    (*size)++;
-    saveFile(database, *size, fopen("userdatabase.txt", "w"));
+
+    if(foundUser == 'f') {
+        printf("Input New Password: ");
+        scanf("%s", passwordInput);
+
+
+        // Update Database
+        if(*size < 1) {
+            strcpy(database[0].user, userInput);
+            strcpy(database[0].password, passwordInput);
+            database[0].admin = 'f';
+        }else {
+            strcpy(database[*size].user, userInput);
+            strcpy(database[*size].password, passwordInput);
+            database[*size].admin = 'f';
+        }
+        (*size)++;
+        saveFile(database, *size, fopen("userdatabase.txt", "w"));
+    }else {
+        printf("User already Exists in Database");
+    }
 }
 
 void saveFile(User database[], int size, FILE *f) {
