@@ -29,6 +29,7 @@ int findDeviceIndex(deviceInfo info[], int infoCount, char *devName) {
 
     return found;
 }
+
 void fillDevice(UserDevice *userData, deviceInfo info[], int infoCount, int deviceIndex,char *deviceName) {
     // Find for Listed Device
     int infoDeviceIndex = findDeviceIndex(info, infoCount, deviceName);
@@ -61,5 +62,23 @@ void loadDevice(UserDevice database[], deviceInfo infoDatabase[], int infoCount,
 
         database[*size].deviceCount = dCount;
         (*size)++;
+    }
+
+    fclose(f);
+}
+
+void saveDevice(UserDevice database[], int *size, FILE *f) {
+    if(f != NULL) {
+        for(int i=0;i<*size;i++) {
+            fprintf(f, "%s", database[i].name);
+
+            for(int j=0; j > database[i].deviceCount; j++) {
+                fprintf(f, ",%s", database[i].devices[j].deviceName);
+            }
+
+            fprintf(f,"\n");
+        }
+
+        fclose(f);
     }
 }

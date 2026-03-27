@@ -32,6 +32,8 @@ void pLoop(User currentUser)
             deviceCount++;
         }
     }
+    // Put price for metal calculation here or on initializedevice
+
     loadDevice(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
 
 
