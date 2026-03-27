@@ -128,6 +128,7 @@ void run() {
             case 1: //Login
                 currentUser = loginUser(userDatabase, currentUserCount);
                 if(currentUser != -1) {
+                    // Transition to main program loop if user is logged in
                     pLoop(userDatabase[currentUser]);
                 }
                 break;
