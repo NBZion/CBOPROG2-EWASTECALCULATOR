@@ -54,7 +54,6 @@ void pLoop(User currentUser)
     printf("You have %d Device\nSelect one of the Following...\n1 - Add Device\n2 - Remove Device\n", currentUserDevice.deviceCount);
     scanf("%d", &deviceDecision);
 
-    scanf("%d", &deviceDecision);
     switch(deviceDecision) {
 
     }
