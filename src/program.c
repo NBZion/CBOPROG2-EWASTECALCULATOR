@@ -8,6 +8,14 @@ void pLoop(User currentUser)
 {
     printf("Welcome %s!\n", currentUser.user);
 
+    UserDevice deviceDatabase[10];
+    int deviceDatabaseCount;
+
+    // Create devicedatabase.txt if doesn't exist
+    if(fopen("devicedatabase.txt","r") == NULL) {
+        fopen("devicedatabase.txt","w");
+    }
+
     // Device initialization
     FILE *fDevices;
     FILE *fMinerals;
@@ -16,7 +24,25 @@ void pLoop(User currentUser)
 
     deviceInfo devices[MAX_DEVICES];
     int deviceCount = 0;
-    initializeDevices(devices, fDevices, fMinerals, &deviceCount);
+
+    if(fDevices != NULL && fMinerals != NULL) {
+        deviceCount=0;
+        for(int i=0; i< 100; i++) {
+            initializeDevices(&devices[i], fDevices, fMinerals);
+            deviceCount++;
+        }
+    }
+    loadDevice(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
+
+    // DEBUG
+    for(int i=0; i<deviceDatabaseCount; i++) {
+        printf("User: %s\n",deviceDatabase[i].name);
+        printf("Devices: ");
+        for(int j=0; j<deviceDatabase[i].deviceCount;j++) {
+            printf("%s ", deviceDatabase[i].devices[j].deviceName);
+        }
+        printf("\n");
+    }
 
     return;
 }

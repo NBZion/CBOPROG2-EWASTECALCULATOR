@@ -20,7 +20,7 @@ typedef struct mineralType
 
 typedef struct deviceInfo
 {
-    String deviceName;    // Name of the device
+    char deviceName[51];    // Name of the device
     mineralType minerals;   // Minerals contained within the device
     float price;            // Calculated price of minerals contained within the device
 }deviceInfo;
@@ -31,9 +31,10 @@ typedef struct {
     int deviceCount;
 } UserDevice;
 
-void initializeDevices(deviceInfo *d, FILE *devices, FILE *minerals, int *deviceCount);
-void loadDevice(UserDevice database[], int *size, FILE *f);
+void initializeDevices(deviceInfo *d, FILE *devices, FILE *minerals);
+void loadDevice(UserDevice database[], deviceInfo infoDatabase[],int infoCount,int *size, FILE *f);
 void saveDevice(UserDevice database[], int *size, FILE *f);
-void fillDevices(UserDevice userData, deviceInfo info[]);
+int findDeviceIndex(deviceInfo info[], int infoCount, char *devName);
+void fillDevice(UserDevice *userData, deviceInfo info[],int infoCount,int deviceIndex , char *deviceName);
 
 #endif
