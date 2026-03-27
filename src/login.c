@@ -79,7 +79,7 @@ void loadFile(User database[], int *size, FILE *f) {
     if(f != NULL) {
         String encryptedUser, encryptedPassword;
         char encryptedAdmin;
-        while(fscanf(f, "%s %s %c", encryptedUser, encryptedPassword, &encryptedAdmin) != EOF){ 
+        while(fscanf(f, "%s %s %c", encryptedUser, encryptedPassword, &encryptedAdmin) != EOF){
             decrypt(database[*size].user, encryptedUser);
             decrypt(database[*size].password, encryptedPassword);
             database[*size].admin = (encryptedAdmin - 33 - KEY[0] + 94) % 94 + 33;
@@ -94,6 +94,7 @@ void run() {
     User userDatabase[MAX_USER];
     int currentUserCount = 0;
     int loginInput;
+    int currentUser;
     char running = 't';
 
     // Create File if doesn't exist
@@ -111,7 +112,7 @@ void run() {
 
         switch(loginInput) {
             case 1: //Login
-                int currentUser = loginUser(userDatabase, currentUserCount);
+                currentUser = loginUser(userDatabase, currentUserCount);
                 if(currentUser != -1) {
                     // Do Login Logic..
                 }
