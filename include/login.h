@@ -12,9 +12,12 @@ typedef struct {
     String user;
     String password;
     char admin; // t if true f if false
+    String securityAnswer;
 } User;
 
+int loginUser(User database[], int size);
 void registerUser(User database[], int *size);
+void resetUser(User database[], int size);
 void saveFile(User database[], int size, FILE *f);
 void loadFile(User database[], int *size, FILE *f);
 void run();
