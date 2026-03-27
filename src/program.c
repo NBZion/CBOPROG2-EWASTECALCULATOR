@@ -4,6 +4,18 @@
 #include "login.h"
 #include "devices.h"
 
+int getCurrentDeviceDatabase(UserDevice database[], int size, String user) {
+    int found = -1;
+
+    for(int i=0; i<size;i++) {
+        if(strcmp(database[i].name, user) != 0) {
+            found=i;
+        }
+    }
+
+    return found;
+}
+
 void pLoop(User currentUser)
 {
     printf("Welcome %s!\n", currentUser.user);
@@ -36,6 +48,16 @@ void pLoop(User currentUser)
 
     loadDevice(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
 
+    // Program Loop... Will put while loop soon
+    int deviceDecision;
+    UserDevice currentUserDevice = deviceDatabase[getCurrentDeviceDatabase(deviceDatabase, deviceDatabaseCount, currentUser.user)];
+    printf("You have %d Device\nSelect one of the Following...\n1 - Add Device\n2 - Remove Device\n", currentUserDevice.deviceCount);
+    scanf("%d", &deviceDecision);
+
+    scanf("%d", &deviceDecision);
+    switch(deviceDecision) {
+
+    }
 
     return;
 }
