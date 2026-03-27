@@ -15,14 +15,8 @@ void pLoop(User currentUser)
     fMinerals = fopen("data/minerals.txt", "r");
 
     deviceInfo devices[MAX_DEVICES];
+    int deviceCount = 0;
+    initializeDevices(devices, fDevices, fMinerals, &deviceCount);
 
-    if (fDevices != NULL && fMinerals != NULL)
-    {
-        for (int i = 0; i < 100; i++)
-        {
-            initializeDevices(&devices[i], fDevices, fMinerals);
-        }
-    }
-    
     return;
 }

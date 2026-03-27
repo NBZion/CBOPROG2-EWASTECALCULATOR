@@ -31,7 +31,7 @@ typedef struct {
     int deviceCount;
 } UserDevice;
 
-void initializeDevices(deviceInfo *d, FILE *devices, FILE *minerals);
+void initializeDevices(deviceInfo *d, FILE *devices, FILE *minerals, int *deviceCount);
 void loadDevice(UserDevice database[], int *size, FILE *f);
 void saveDevice(UserDevice database[], int *size, FILE *f);
 
