@@ -24,16 +24,23 @@ void admin(User userDatabase[], deviceInfo deviceDatabase[], int *userDatabaseSi
         printf("1 - Add User\n2 - Remove user\n3 - Edit User\n4 - Add Device to Info Database\n5 - Exit\n@admin - ");
         scanf("%d", &adminDecision);
 
+        loadFile(userDatabase, userDatabaseSize, fopen("userdatabase.txt", "r"));
         switch(adminDecision) {
             case 1:
-
+                registerUser(userDatabase, userDatabaseSize);
+                break;
             case 2:
-
+                removeUser(userDatabase, userDatabaseSize);
+                break;
             case 3:
-
+                editUser(userDatabase, *userDatabaseSize);
+                break;
             case 4:
-
+                addInfoDevice(deviceDatabase, deviceDatabaseSize);
+                break;
             case 5:
+                running='f';
+                break;
         }
     }
 }
