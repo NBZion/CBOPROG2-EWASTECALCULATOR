@@ -140,7 +140,7 @@ void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoC
 
 void removeUserDevice(UserDevice *currentUser) {
     int deviceDecision;
-    int deleteConfirmation;
+    char deleteConfirmation;
     // List Current Devices in current User's device array
     for(int i=0; i<currentUser->deviceCount; i++) {
         printf("%3d: %20.20s ", i+1, currentUser->devices[i].deviceName);
@@ -152,17 +152,20 @@ void removeUserDevice(UserDevice *currentUser) {
     scanf("%d", &deviceDecision);
 
     deviceDecision--;
-    printf("Are you sure you want to remove %s?\n", currentUser->devices[deviceDecision].deviceName);
     displayDevice(currentUser->devices[deviceDecision]);
-    scanf("%d", &deleteConfirmation);
+    printf("\nAre you sure you want to remove %s?(y/n)\n", currentUser->devices[deviceDecision].deviceName);
+    scanf(" %c", &deleteConfirmation);
 
-    // "Remove" Device
-    for(int i=deviceDecision; i<currentUser->deviceCount; i++) {
-        if(i+1 < currentUser->deviceCount) {
-            currentUser->devices[i] = currentUser->devices[i+1];
+    if(deleteConfirmation == 'y') {
+        // "Remove" Device
+        for(int i=deviceDecision; i<currentUser->deviceCount; i++) {
+            if(i+1 < currentUser->deviceCount) {
+                currentUser->devices[i] = currentUser->devices[i+1];
+            }
         }
+
+        currentUser->deviceCount--;
     }
 
-    currentUser->deviceCount--;
 
 }
