@@ -59,7 +59,6 @@ void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[], int infoCo
         }
 
         database[*size].deviceCount = dCount;
-        printf("")
         (*size)++;
     }
 

@@ -8,11 +8,10 @@ int getCurrentDeviceDatabase(UserDevice database[], int size, String user) {
     int found = -1;
 
     for(int i=0; i<size;i++) {
-        if(strcmp(database[i].name, user) != 0) {
+        if(strcmp(database[i].name, user) == 0) {
             found=i;
         }
     }
-
     return found;
 }
 
@@ -40,6 +39,9 @@ void pLoop(User currentUser)
     initializeDevices(devices, &deviceCount, fDevices, fMinerals);
     // Put price for metal calculation here or on initializedevice
 
+    // Load Device File to get current user
+
+    loadDeviceFile(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
 
     // Program Loop
     int deviceDecision;
@@ -61,7 +63,6 @@ void pLoop(User currentUser)
             case 2:
 
             case 3:
-
             case 4:
                 running = 'f';
                 break;
