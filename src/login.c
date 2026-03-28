@@ -40,10 +40,31 @@ int loginUser(User database[], int size) {
 }
 
 void removeUser(User database[], int *size) {
+    int removeDecision;
+    char removeConfirmation;
     // List Users
     for(int i=0; i<*size;i++) {
-        printf("%d - %s", i+1, database[i].user);
+        printf("%d - %s\n", i+1, database[i].user);
     }
+
+    printf("Who would you like to remove?\n@admin/remove - ");
+    scanf("%d", &removeDecision);
+
+    removeDecision--;
+    printf("Are you sure you want to remove %s?", database[removeDecision].user);
+    scanf(" %c", &removeConfirmation);
+
+    if(removeConfirmation == 'y') {
+        for(int i=removeDecision; i<*size; i++) {
+            if(i+1<*size) {
+                database[i] = database[i+1];
+            }
+        }
+
+        (*size)--;
+    }
+
+    saveFile(database, *size, fopen("userdatabase.txt", "w"));
 }
 
 void editUser(User database[], int size) {
