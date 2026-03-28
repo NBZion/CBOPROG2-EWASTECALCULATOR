@@ -64,7 +64,8 @@ void pLoop(User currentUser)
 
         switch(deviceDecision) {
             case 1:
-
+                addUserDevice(currentUserDevice, devices, deviceCount);
+                break;
             case 2:
 
             case 3:

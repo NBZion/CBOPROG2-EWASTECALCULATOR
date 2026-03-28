@@ -37,5 +37,5 @@ void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[],int infoCou
 void saveDeviceFile(UserDevice database[], int *size, FILE *f);
 int findDeviceIndex(deviceInfo info[], int infoCount, char *devName);
 void fillDevice(UserDevice *userData, deviceInfo info[],int infoCount,int deviceIndex , char *deviceName);
-
+void addUserDevice(UserDevice currentUser, deviceInfo infoDatabase[], int infoCount);
 #endif

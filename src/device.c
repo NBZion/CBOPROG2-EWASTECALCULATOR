@@ -7,9 +7,9 @@ void initializeDevices(deviceInfo d[],int *deviceCount, FILE *devices, FILE *min
     *deviceCount = 0;
 
     while(fscanf(minerals, "%f %f %f %f %f %f %f %f", &d[*deviceCount].minerals.gold, &d[*deviceCount].minerals.aluminum, &d[*deviceCount].minerals.silver,&d[*deviceCount].minerals.platinum, &d[*deviceCount].minerals.rhodium, &d[*deviceCount].minerals.nickel, &d[*deviceCount].minerals.tin, &d[*deviceCount].minerals.lithium) != EOF) {
-        (*deviceCount)++;
         fgets(d[*deviceCount].deviceName, 51, devices);                                    // Scans for device names
         d[*deviceCount].deviceName[strcspn(d[*deviceCount].deviceName, "\n")] = '\0';                     // Replaces newlines with nullbytes
+        (*deviceCount)++;
     }
 
 }
@@ -96,5 +96,13 @@ void saveDeviceFile(UserDevice database[], int *size, FILE *f) {
         }
 
         fclose(f);
+    }
+}
+
+void addUserDevice(UserDevice currentUser, deviceInfo infoDatabase[], int infoCount) {
+    // List Current Devices to Pick
+    for(int i=0; i<infoCount; i++) {
+        printf("%d - %s | ", i, infoDatabase[i].deviceName);
+        if((i%2) == 0 && i != 0)  printf("\n");
     }
 }
