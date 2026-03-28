@@ -39,6 +39,17 @@ int loginUser(User database[], int size) {
     }
 }
 
+void removeUser(User database[], int *size) {
+    // List Users
+    for(int i=0; i<*size;i++) {
+        printf("%d - %s", i+1, database[i].user);
+    }
+}
+
+void editUser(User database[], int size) {
+
+}
+
 void resetUser(User database[], int size) {
     String userInput, securityInput;
     int userIndex = -1;
