@@ -37,13 +37,7 @@ void pLoop(User currentUser)
     deviceInfo devices[MAX_DEVICES];
     int deviceCount = 0;
 
-    if(fDevices != NULL && fMinerals != NULL) {
-        deviceCount=0;
-        for(int i=0; i< 100; i++) {
-            initializeDevices(&devices[i], fDevices, fMinerals);
-            deviceCount++;
-        }
-    }
+    initializeDevices(devices, &deviceCount, fDevices, fMinerals);
     // Put price for metal calculation here or on initializedevice
 
 

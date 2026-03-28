@@ -2,19 +2,16 @@
 #include <string.h>
 #include "devices.h"
 
-void initializeDevices(deviceInfo *d, FILE *devices, FILE *minerals)
+void initializeDevices(deviceInfo d[],int *deviceCount, FILE *devices, FILE *minerals)
 {
-    fgets(d -> deviceName, 51, devices);                                    // Scans for device names
-    d->deviceName[strcspn(d->deviceName, "\n")] = '\0';                     // Replaces newlines with nullbytes
+    *deviceCount = 0;
 
-    fscanf(minerals, "%f %f %f %f %f %f %f %f", &d -> minerals.gold,        // Scans for every mineralType
-                                                &d -> minerals.aluminum,
-                                                &d -> minerals.silver,
-                                                &d -> minerals.platinum,
-                                                &d -> minerals.rhodium,
-                                                &d -> minerals.nickel,
-                                                &d -> minerals.tin,
-                                                &d -> minerals.lithium);
+    while(fscanf(minerals, "%f %f %f %f %f %f %f %f", &d[*deviceCount].minerals.gold, &d[*deviceCount].minerals.aluminum, &d[*deviceCount].minerals.silver,&d[*deviceCount].minerals.platinum, &d[*deviceCount].minerals.rhodium, &d[*deviceCount].minerals.nickel, &d[*deviceCount].minerals.tin, &d[*deviceCount].minerals.lithium) != EOF) {
+        (*deviceCount)++;
+        fgets(d[*deviceCount].deviceName, 51, devices);                                    // Scans for device names
+        d[*deviceCount].deviceName[strcspn(d[*deviceCount].deviceName, "\n")] = '\0';                     // Replaces newlines with nullbytes
+    }
+
 }
 
 int findDeviceIndex(deviceInfo info[], int infoCount, char *devName) {
@@ -46,6 +43,7 @@ void fillDevice(UserDevice *userData, deviceInfo info[], int infoCount, int devi
 
 void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[], int infoCount,int *size, FILE *f) {
     char buffer[512];
+    int dCount;
 
     while(fgets(buffer, sizeof(buffer),f) != NULL) {
 
@@ -53,7 +51,7 @@ void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[], int infoCo
 
         strcpy(database[*size].name, token);
 
-        int dCount = 0;
+        dCount=0;
 
         while((token = strtok(NULL, ",\n")) != NULL) {
             fillDevice(&database[*size], infoDatabase, infoCount, dCount, token);
@@ -61,6 +59,7 @@ void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[], int infoCo
         }
 
         database[*size].deviceCount = dCount;
+        printf("")
         (*size)++;
     }
 
@@ -72,7 +71,7 @@ void saveDeviceFile(UserDevice database[], int *size, FILE *f) {
         for(int i=0;i<*size;i++) {
             fprintf(f, "%s", database[i].name);
 
-            for(int j=0; j > database[i].deviceCount; j++) {
+            for(int j=0; j < database[i].deviceCount; j++) {
                 fprintf(f, ",%s", database[i].devices[j].deviceName);
             }
 
