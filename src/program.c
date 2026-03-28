@@ -16,8 +16,9 @@ int getCurrentDeviceDatabase(UserDevice database[], int size, String user) {
 }
 
 void admin(User userDatabase[], deviceInfo deviceDatabase[], int *userDatabaseSize, int *deviceDatabaseSize) {
-
+    printf()
 }
+
 void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
 {
     printf("Welcome %s!\n", currentUser.user);
@@ -78,6 +79,7 @@ void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
                 saveDeviceFile(deviceDatabase, deviceDatabaseCount, fopen("devicedatabase.txt","w"));
                 break;
             case 3:
+                // Actually show inventory using displayDevice
                 accountValue = calculateProfile(&currentUserDevice, devices, deviceCount);
                 printf("\n%.2fphp inventory value.", accountValue); // Only for debugging, to be removed later when UI is implemented
                 break;
