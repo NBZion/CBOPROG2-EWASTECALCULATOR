@@ -21,7 +21,7 @@ float calculateProfile(UserDevice *p, deviceInfo infoDatabase[], int deviceCount
     {
         for (int j = 0; j < deviceCount; j++) // Loops through the entire database of devices
         {
-            if (strcmp(p -> devices[i].deviceName, infoDatabase[j].deviceName) == 0) 
+            if (strcmp(p -> devices[i].deviceName, infoDatabase[j].deviceName) == 0)
             {
                 accountValue += infoDatabase[j].price;
             }
@@ -166,6 +166,7 @@ void removeUserDevice(UserDevice *currentUser) {
     }
 
     printf("\n");
+    printf("Pick a number to choose device to remove from inventory...\n@remove - ");
     scanf("%d", &deviceDecision);
 
     deviceDecision--;
