@@ -51,12 +51,23 @@ void pLoop(User currentUser)
     // Program Loop... Will put while loop soon
     int deviceDecision;
     UserDevice currentUserDevice = deviceDatabase[getCurrentDeviceDatabase(deviceDatabase, deviceDatabaseCount, currentUser.user)];
-    printf("You have %d Device\nSelect one of the Following...\n1 - Add Device\n2 - Remove Device\n", currentUserDevice.deviceCount);
-    scanf("%d", &deviceDecision);
+    char running = 't';
+    while(running == 't') {
+        printf("You have %d Devices\nSelect one of the Following...\n1 - Add Device\n2 - Remove Device\n4 - Log Out\n@ - ", currentUserDevice.deviceCount);
+        scanf("%d", &deviceDecision);
 
-    switch(deviceDecision) {
+        switch(deviceDecision) {
+            case 1:
 
+            case 2:
+
+            case 3:
+
+            case 4:
+                running = 'f';
+                break;
+        }
     }
 
-    return;
+
 }
