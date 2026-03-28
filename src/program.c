@@ -21,7 +21,7 @@ void admin(User userDatabase[], deviceInfo deviceDatabase[], int *userDatabaseSi
 
     while(running == 't') {
         printf("Welcome Admin! What would you like to do?\n");
-        printf("1 - Add User\n2 - Remove user\n3 - Edit User\n4 - Add Device to Info Database\n5 - Exit\n@admin - ");
+        printf("1 - Add User\n2 - Remove user\n3 - Edit User\n4 - Add Device to Info Database\n5 - Display User Database\n6 - Exit\n@admin - ");
         scanf("%d", &adminDecision);
 
         loadFile(userDatabase, userDatabaseSize, fopen("userdatabase.txt", "r"));
@@ -39,6 +39,10 @@ void admin(User userDatabase[], deviceInfo deviceDatabase[], int *userDatabaseSi
                 addInfoDevice(deviceDatabase, deviceDatabaseSize);
                 break;
             case 5:
+                for(int i=0; i<*userDatabaseSize;i++)
+                    displayUser(userDatabase[i]);
+                break;
+            case 6:
                 running='f';
                 break;
         }

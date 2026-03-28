@@ -111,6 +111,10 @@ void editUser(User database[], int size) {
     saveFile(database, size, fopen("userdatabase.txt", "w"));
 }
 
+void displayUser(User user) {
+    printf("User: %s Password:%s Admin:%c SecurityAnswer:%s\n", user.user, user.password, user.admin, user.securityAnswer);
+}
+
 void resetUser(User database[], int size) {
     String userInput, securityInput;
     int userIndex = -1;

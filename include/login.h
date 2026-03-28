@@ -20,6 +20,7 @@ void registerUser(User database[], int *size);
 void resetUser(User database[], int size);
 void removeUser(User database[], int *size);
 void editUser(User database[], int size);
+void displayUser(User user);
 void saveFile(User database[], int size, FILE *f);
 void loadFile(User database[], int *size, FILE *f);
 void run();
