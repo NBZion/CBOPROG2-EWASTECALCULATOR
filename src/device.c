@@ -14,6 +14,24 @@ void initializeDevices(deviceInfo d[],int *deviceCount, FILE *devices, FILE *min
 
 }
 
+void calculateMinerals(deviceInfo *d)
+{
+    float goldPrice, aluPrice, silPrice, platPrice, rhoPrice, nickPrice, tinPrice, lithPrice;
+    float priceSum;
+
+    goldPrice = d -> minerals.gold * 9753.76;
+    aluPrice = d -> minerals.aluminum * 0.2;
+    silPrice = d -> minerals.silver * 161.45;
+    platPrice = d -> minerals.platinum * 4142.62;
+    rhoPrice = d -> minerals.rhodium * 22294.77;
+    nickPrice = d -> minerals.nickel * 1.04;
+    tinPrice = d -> minerals.tin * 2.98;
+    lithPrice = d -> minerals.lithium * 1.33;
+
+    priceSum = goldPrice + aluPrice + silPrice + platPrice + rhoPrice + nickPrice + tinPrice + lithPrice;
+    d -> price = priceSum;
+}
+
 int findDeviceIndex(deviceInfo info[], int infoCount, char *devName) {
     int found = -1;
 
