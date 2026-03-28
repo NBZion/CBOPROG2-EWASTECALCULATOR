@@ -103,16 +103,18 @@ void saveDeviceFile(UserDevice database[], int size, FILE *f) {
 
 void displayDevice(deviceInfo device)  {
     printf("INFORMATION\n");
-    printf("Name: %s", device.deviceName);
-    printf("Contained Minerals: ");
-    printf("Gold: %f", device.minerals.gold);
-    printf("Aluminum: %f", device.minerals.aluminum);
-    printf("Silver: %f", device.minerals.silver);
-    printf("Platinum: %f",device.minerals.platinum);
-    printf("Rhodium: %f",device.minerals.rhodium);
-    printf("Nicket: %f",device.minerals.nickel);
-    printf("Tin: %f",device.minerals.tin);
-    printf("Lithium: %f", device.minerals.lithium);
+    printf("Name: %s\n", device.deviceName);
+    printf("Contained Minerals: \n");
+    printf("Gold: %f \n", device.minerals.gold);
+    printf("Aluminum: %f\n", device.minerals.aluminum);
+    printf("Silver: %f\n", device.minerals.silver);
+    printf("Platinum: %f\n",device.minerals.platinum);
+    printf("Rhodium: %f\n",device.minerals.rhodium);
+    printf("Nicket: %f\n",device.minerals.nickel);
+    printf("Tin: %f\n",device.minerals.tin);
+    printf("Lithium: %f\n", device.minerals.lithium);
+
+    printf("\nPrice: %.2f\n", device.price);
 }
 
 void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoCount) {
@@ -138,6 +140,7 @@ void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoC
 
 void removeUserDevice(UserDevice *currentUser) {
     int deviceDecision;
+    int deleteConfirmation;
     // List Current Devices in current User's device array
     for(int i=0; i<currentUser->deviceCount; i++) {
         printf("%3d: %20.20s ", i+1, currentUser->devices[i].deviceName);
@@ -149,14 +152,17 @@ void removeUserDevice(UserDevice *currentUser) {
     scanf("%d", &deviceDecision);
 
     deviceDecision--;
-    printf("Are you sure you want to remove %s?", currentUser->devices[deviceDecision].deviceName);
-    displayUserDevice(*currentUser);
-    // Check if device is in end of array or in middle of array
-    if(deviceDecision == currentUser->deviceCount) {
+    printf("Are you sure you want to remove %s?\n", currentUser->devices[deviceDecision].deviceName);
+    displayDevice(currentUser->devices[deviceDecision]);
+    scanf("%d", &deleteConfirmation);
 
-    }else {
-
+    // "Remove" Device
+    for(int i=deviceDecision; i<currentUser->deviceCount; i++) {
+        if(i+1 < currentUser->deviceCount) {
+            currentUser->devices[i] = currentUser->devices[i+1];
+        }
     }
 
+    currentUser->deviceCount--;
 
 }

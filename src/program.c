@@ -70,7 +70,10 @@ void pLoop(User currentUser)
                 saveDeviceFile(deviceDatabase, deviceDatabaseCount, fopen("devicedatabase.txt","w"));
                 break;
             case 2:
-
+                removeUserDevice(&currentUserDevice);
+                deviceDatabase[currentUserIndex] = currentUserDevice;
+                saveDeviceFile(deviceDatabase, deviceDatabaseCount, fopen("devicedatabase.txt","w"));
+                break;
             case 3:
             case 4:
                 running = 'f';
