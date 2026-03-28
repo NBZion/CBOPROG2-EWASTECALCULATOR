@@ -14,6 +14,10 @@ void initializeDevices(deviceInfo d[],int *deviceCount, FILE *devices, FILE *min
 
 }
 
+void addInfoDevice(deviceInfo d[], int *devCount) {
+    
+}
+
 float calculateProfile(UserDevice *p, deviceInfo infoDatabase[], int deviceCount)
 {
     float accountValue;
