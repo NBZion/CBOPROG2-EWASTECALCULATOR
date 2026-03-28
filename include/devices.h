@@ -33,6 +33,7 @@ typedef struct {
 
 void initializeDevices(deviceInfo d[],int *devCount, FILE *devices, FILE *minerals);
 void calculateMinerals(deviceInfo *d);
+float calculateProfile(UserDevice *p, deviceInfo infoDatabase[], int deviceCount);
 void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[],int infoCount,int *size, FILE *f);
 void saveDeviceFile(UserDevice database[], int size, FILE *f);
 int findDeviceIndex(deviceInfo info[], int infoCount, char *devName);
