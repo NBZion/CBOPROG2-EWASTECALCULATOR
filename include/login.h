@@ -18,6 +18,8 @@ typedef struct {
 int loginUser(User database[], int size);
 void registerUser(User database[], int *size);
 void resetUser(User database[], int size);
+void removeUser(User database[], int *size);
+void editUser(User database[], int size);
 void saveFile(User database[], int size, FILE *f);
 void loadFile(User database[], int *size, FILE *f);
 void run();
