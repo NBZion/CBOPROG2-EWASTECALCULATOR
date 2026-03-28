@@ -51,7 +51,7 @@ void removeUser(User database[], int *size) {
     scanf("%d", &removeDecision);
 
     removeDecision--;
-    printf("Are you sure you want to remove %s?", database[removeDecision].user);
+    printf("Are you sure you want to remove %s?(y/n)\n@admin/remove - ", database[removeDecision].user);
     scanf(" %c", &removeConfirmation);
 
     if(removeConfirmation == 'y') {
@@ -68,7 +68,47 @@ void removeUser(User database[], int *size) {
 }
 
 void editUser(User database[], int size) {
+    int userDecision;
+    int editDecision;
+    String tempInput;
+    char tempCInput;
+    // List Users
+    for(int i=0;i<size;i++) {
+        printf("%d - %s\n", i+1, database[i].user);
+    }
 
+    printf("Which user do you want to edit?\n@admin/edit - ");
+    scanf("%d", &userDecision);
+
+    userDecision--;
+
+    printf("What do you wanna edit?\n1 - Username\n2 - Password\n3 - Admin\n4 - Security Answer\n@admin/edit - ");
+    scanf("%d", &editDecision);
+
+    switch(editDecision) {
+        case 1:
+            printf("Input New Username: ");
+            scanf("%s",tempInput);
+            strcpy(database[userDecision].user, tempInput);
+            break;
+        case 2:
+            printf("Input New Password: ");
+            scanf("%s", tempInput);
+            strcpy(database[userDecision].password, tempInput);
+            break;
+        case 3:
+            printf("Input New Admin Status(t/f): ");
+            scanf(" %c", &tempCInput);
+            database[userDecision].admin = tempCInput;
+            break;
+        case 4:
+            printf("Input New Security Answer(Color): ");
+            scanf("%s", tempInput);
+            strcpy(database[userDecision].securityAnswer, tempInput);
+            break;
+    }
+
+    saveFile(database, size, fopen("userdatabase.txt", "w"));
 }
 
 void resetUser(User database[], int size) {
