@@ -37,7 +37,12 @@ void pLoop(User currentUser)
     int deviceCount = 0;
 
     initializeDevices(devices, &deviceCount, fDevices, fMinerals);
-    // Put price for metal calculation here or on initializedevice
+    
+    // Metal calculations
+    for (int j = 0; j < deviceCount; j++) 
+    {
+        calculateMinerals(&devices[j]);
+    }
 
     // Load Device File to get current user
 
