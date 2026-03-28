@@ -46,13 +46,13 @@ void pLoop(User currentUser)
     }
     // Put price for metal calculation here or on initializedevice
 
-    loadDeviceFile(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
 
     // Program Loop... Will put while loop soon
     int deviceDecision;
     UserDevice currentUserDevice = deviceDatabase[getCurrentDeviceDatabase(deviceDatabase, deviceDatabaseCount, currentUser.user)];
     char running = 't';
     while(running == 't') {
+        loadDeviceFile(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
         printf("You have %d Devices\nSelect one of the Following...\n1 - Add Device\n2 - Remove Device\n4 - Log Out\n@ - ", currentUserDevice.deviceCount);
         scanf("%d", &deviceDecision);
 
