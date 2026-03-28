@@ -16,7 +16,10 @@ int getCurrentDeviceDatabase(UserDevice database[], int size, String user) {
 }
 
 void admin(User userDatabase[], deviceInfo deviceDatabase[], int *userDatabaseSize, int *deviceDatabaseSize) {
-    printf()
+    int adminDecision;
+    printf("Welcome Admin! What would you like to do?\n");
+    printf("1 - Add User\n2 - Remove user\n3 - Edit User\n4 - Add Device to Info Database\n@admin - ");
+    scanf("%d", &adminDecision)
 }
 
 void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
