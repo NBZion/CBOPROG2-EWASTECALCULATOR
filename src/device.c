@@ -101,6 +101,20 @@ void saveDeviceFile(UserDevice database[], int size, FILE *f) {
     }
 }
 
+void displayDevice(deviceInfo device)  {
+    printf("INFORMATION\n");
+    printf("Name: %s", device.deviceName);
+    printf("Contained Minerals: ");
+    printf("Gold: %f", device.minerals.gold);
+    printf("Aluminum: %f", device.minerals.aluminum);
+    printf("Silver: %f", device.minerals.silver);
+    printf("Platinum: %f",device.minerals.platinum);
+    printf("Rhodium: %f",device.minerals.rhodium);
+    printf("Nicket: %f",device.minerals.nickel);
+    printf("Tin: %f",device.minerals.tin);
+    printf("Lithium: %f", device.minerals.lithium);
+}
+
 void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoCount) {
     int deviceDecision;
     // List Current Devices to Pick
@@ -114,11 +128,35 @@ void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoC
     printf("Pick a number(1-100) to pick a device to add to inventory...\n@add - ");
     scanf("%d", &deviceDecision);
 
-    deviceDecision-=1;
+    deviceDecision--;
 
 
     currentUser->devices[currentUser->deviceCount] = infoDatabase[deviceDecision];
 
     currentUser->deviceCount++;
+}
+
+void removeUserDevice(UserDevice *currentUser) {
+    int deviceDecision;
+    // List Current Devices in current User's device array
+    for(int i=0; i<currentUser->deviceCount; i++) {
+        printf("%3d: %20.20s ", i+1, currentUser->devices[i].deviceName);
+        if(((i+1)%2) == 0)  printf("\n");
+        else printf("| ");
+    }
+
+    printf("\n");
+    scanf("%d", &deviceDecision);
+
+    deviceDecision--;
+    printf("Are you sure you want to remove %s?", currentUser->devices[deviceDecision].deviceName);
+    displayUserDevice(*currentUser);
+    // Check if device is in end of array or in middle of array
+    if(deviceDecision == currentUser->deviceCount) {
+
+    }else {
+
+    }
+
 
 }
