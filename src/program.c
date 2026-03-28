@@ -53,6 +53,7 @@ void pLoop(User currentUser)
     char running = 't';
     while(running == 't') {
         loadDeviceFile(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
+        // Maybe also add Device Dashboard here as print
         printf("You have %d Devices\nSelect one of the Following...\n1 - Add Device\n2 - Remove Device\n4 - Log Out\n", currentUserDevice.deviceCount);
         if(currentUser.admin == 't') {
             printf("5 - Admin\n");
