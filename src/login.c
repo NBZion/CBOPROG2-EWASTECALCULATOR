@@ -106,7 +106,7 @@ void registerUser(User database[], int *size) {
         if(*size < 1) {
             strcpy(database[0].user, userInput);
             strcpy(database[0].password, passwordInput);
-            database[0].admin = 'f';
+            database[0].admin = 't';
             strcpy(database[0].securityAnswer, securityInput);
         }else {
             strcpy(database[*size].user, userInput);
