@@ -15,7 +15,10 @@ int getCurrentDeviceDatabase(UserDevice database[], int size, String user) {
     return found;
 }
 
-void pLoop(User currentUser)
+void admin(User userDatabase[], deviceInfo deviceDatabase, int *userDatabaseSize, int *deviceDatabaseSize) {
+
+}
+void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
 {
     printf("Welcome %s!\n", currentUser.user);
     float accountValue;
@@ -77,6 +80,7 @@ void pLoop(User currentUser)
             case 3:
                 accountValue = calculateProfile(&currentUserDevice, devices, deviceCount);
                 printf("\n%.2fphp inventory value.", accountValue); // Only for debugging, to be removed later when UI is implemented
+                break;
             case 4:
                 running = 'f';
                 break;
