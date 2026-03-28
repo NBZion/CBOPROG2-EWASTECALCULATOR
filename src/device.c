@@ -44,7 +44,7 @@ void fillDevice(UserDevice *userData, deviceInfo info[], int infoCount, int devi
 
 }
 
-void loadDevice(UserDevice database[], deviceInfo infoDatabase[], int infoCount,int *size, FILE *f) {
+void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[], int infoCount,int *size, FILE *f) {
     char buffer[512];
 
     while(fgets(buffer, sizeof(buffer),f) != NULL) {
@@ -67,7 +67,7 @@ void loadDevice(UserDevice database[], deviceInfo infoDatabase[], int infoCount,
     fclose(f);
 }
 
-void saveDevice(UserDevice database[], int *size, FILE *f) {
+void saveDeviceFile(UserDevice database[], int *size, FILE *f) {
     if(f != NULL) {
         for(int i=0;i<*size;i++) {
             fprintf(f, "%s", database[i].name);

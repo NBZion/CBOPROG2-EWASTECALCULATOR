@@ -46,7 +46,7 @@ void pLoop(User currentUser)
     }
     // Put price for metal calculation here or on initializedevice
 
-    loadDevice(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
+    loadDeviceFile(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
 
     // Program Loop... Will put while loop soon
     int deviceDecision;
