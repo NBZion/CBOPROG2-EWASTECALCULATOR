@@ -63,6 +63,8 @@ void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[], int infoCo
     char buffer[512];
     int dCount;
 
+    *size = 0;
+
     while(fgets(buffer, sizeof(buffer),f) != NULL) {
 
         char *token = strtok(buffer,",");

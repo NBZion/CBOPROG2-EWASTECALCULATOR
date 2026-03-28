@@ -50,7 +50,8 @@ void pLoop(User currentUser)
 
     // Program Loop
     int deviceDecision;
-    UserDevice currentUserDevice = deviceDatabase[getCurrentDeviceDatabase(deviceDatabase, deviceDatabaseCount, currentUser.user)];
+    int currentUserIndex = getCurrentDeviceDatabase(deviceDatabase, deviceDatabaseCount, currentUser.user);
+    UserDevice currentUserDevice = deviceDatabase[currentUserIndex];
     char running = 't';
     while(running == 't') {
         loadDeviceFile(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
@@ -65,6 +66,7 @@ void pLoop(User currentUser)
         switch(deviceDecision) {
             case 1:
                 addUserDevice(&currentUserDevice, devices, deviceCount);
+                deviceDatabase[currentUserIndex] = currentUserDevice;
                 saveDeviceFile(deviceDatabase, deviceDatabaseCount, fopen("devicedatabase.txt","w"));
                 break;
             case 2:
