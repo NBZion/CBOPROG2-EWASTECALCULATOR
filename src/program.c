@@ -18,7 +18,7 @@ int getCurrentDeviceDatabase(UserDevice database[], int size, String user) {
 void pLoop(User currentUser)
 {
     printf("Welcome %s!\n", currentUser.user);
-
+    float accountValue;
     UserDevice deviceDatabase[10];
     int deviceDatabaseCount;
 
