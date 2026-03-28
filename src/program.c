@@ -53,7 +53,11 @@ void pLoop(User currentUser)
     char running = 't';
     while(running == 't') {
         loadDeviceFile(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
-        printf("You have %d Devices\nSelect one of the Following...\n1 - Add Device\n2 - Remove Device\n4 - Log Out\n@ - ", currentUserDevice.deviceCount);
+        printf("You have %d Devices\nSelect one of the Following...\n1 - Add Device\n2 - Remove Device\n4 - Log Out\n", currentUserDevice.deviceCount);
+        if(currentUser.admin == 't') {
+            printf("5 - Admin\n");
+        }
+        printf("@ - ");
         scanf("%d", &deviceDecision);
 
         switch(deviceDecision) {
@@ -65,6 +69,11 @@ void pLoop(User currentUser)
 
             case 4:
                 running = 'f';
+                break;
+            case 5:
+                if(currentUser.admin == 't') {
+
+                }
                 break;
         }
     }
