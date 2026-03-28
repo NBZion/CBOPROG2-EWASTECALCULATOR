@@ -34,8 +34,8 @@ typedef struct {
 void initializeDevices(deviceInfo d[],int *devCount, FILE *devices, FILE *minerals);
 void calculateMinerals(deviceInfo *d);
 void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[],int infoCount,int *size, FILE *f);
-void saveDeviceFile(UserDevice database[], int *size, FILE *f);
+void saveDeviceFile(UserDevice database[], int size, FILE *f);
 int findDeviceIndex(deviceInfo info[], int infoCount, char *devName);
 void fillDevice(UserDevice *userData, deviceInfo info[],int infoCount,int deviceIndex , char *deviceName);
-void addUserDevice(UserDevice currentUser, deviceInfo infoDatabase[], int infoCount);
+void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoCount);
 #endif

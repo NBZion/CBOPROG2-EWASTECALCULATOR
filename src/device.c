@@ -83,9 +83,9 @@ void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[], int infoCo
     fclose(f);
 }
 
-void saveDeviceFile(UserDevice database[], int *size, FILE *f) {
+void saveDeviceFile(UserDevice database[], int size, FILE *f) {
     if(f != NULL) {
-        for(int i=0;i<*size;i++) {
+        for(int i=0;i<size;i++) {
             fprintf(f, "%s", database[i].name);
 
             for(int j=0; j < database[i].deviceCount; j++) {
@@ -99,10 +99,24 @@ void saveDeviceFile(UserDevice database[], int *size, FILE *f) {
     }
 }
 
-void addUserDevice(UserDevice currentUser, deviceInfo infoDatabase[], int infoCount) {
+void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoCount) {
+    int deviceDecision;
     // List Current Devices to Pick
     for(int i=0; i<infoCount; i++) {
-        printf("%d - %s | ", i, infoDatabase[i].deviceName);
-        if((i%2) == 0 && i != 0)  printf("\n");
+        printf("%3d: %20.20s ", i+1, infoDatabase[i].deviceName);
+        if(((i+1)%3) == 0)  printf("\n");
+        else printf("| ");
     }
+    printf("\n");
+
+    printf("Pick a number(1-100) to pick a device to add to inventory...\n@add - ");
+    scanf("%d", &deviceDecision);
+
+    deviceDecision-=1;
+
+    currentUser->deviceCount++;
+
+    currentUser->devices[currentUser->deviceCount] = infoDatabase[deviceDecision];
+
+
 }

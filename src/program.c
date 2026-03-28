@@ -37,9 +37,9 @@ void pLoop(User currentUser)
     int deviceCount = 0;
 
     initializeDevices(devices, &deviceCount, fDevices, fMinerals);
-    
+
     // Metal calculations
-    for (int j = 0; j < deviceCount; j++) 
+    for (int j = 0; j < deviceCount; j++)
     {
         calculateMinerals(&devices[j]);
     }
@@ -64,7 +64,8 @@ void pLoop(User currentUser)
 
         switch(deviceDecision) {
             case 1:
-                addUserDevice(currentUserDevice, devices, deviceCount);
+                addUserDevice(&currentUserDevice, devices, deviceCount);
+                saveDeviceFile(deviceDatabase, deviceDatabaseCount, fopen("devicedatabase.txt","w"));
                 break;
             case 2:
 
