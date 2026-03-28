@@ -47,7 +47,7 @@ void pLoop(User currentUser)
     // Put price for metal calculation here or on initializedevice
 
 
-    // Program Loop... Will put while loop soon
+    // Program Loop
     int deviceDecision;
     UserDevice currentUserDevice = deviceDatabase[getCurrentDeviceDatabase(deviceDatabase, deviceDatabaseCount, currentUser.user)];
     char running = 't';
