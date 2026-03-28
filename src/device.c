@@ -116,9 +116,9 @@ void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoC
 
     deviceDecision-=1;
 
-    currentUser->deviceCount++;
 
     currentUser->devices[currentUser->deviceCount] = infoDatabase[deviceDecision];
 
+    currentUser->deviceCount++;
 
 }
