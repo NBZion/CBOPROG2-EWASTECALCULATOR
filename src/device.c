@@ -15,7 +15,58 @@ void initializeDevices(deviceInfo d[],int *deviceCount, FILE *devices, FILE *min
 }
 
 void addInfoDevice(deviceInfo d[], int *devCount) {
-    
+    FILE *fDevices = fopen("data/devices.txt", "a");
+    FILE *fMinerals = fopen("data/minerals.txt", "a");
+    if(*devCount <= MAX_DEVICES) {
+
+        if (fDevices == NULL || fMinerals == NULL) {
+            printf("Error: Could not open database files for updating.\n");
+        }else {
+
+            // Get Device Name
+            printf("Enter Device Name: ");
+            getchar(); // Clear newline buffer from previous inputs
+            fgets(d[*devCount].deviceName, 51, stdin);
+            d[*devCount].deviceName[strcspn(d[*devCount].deviceName, "\n")] = '\0';
+
+            // Get Mineral Composition
+            printf("Enter mineral content (in grams):\n");
+            printf("Gold: ");     scanf("%f", &d[*devCount].minerals.gold);
+            printf("Aluminum: "); scanf("%f", &d[*devCount].minerals.aluminum);
+            printf("Silver: ");   scanf("%f", &d[*devCount].minerals.silver);
+            printf("Platinum: "); scanf("%f", &d[*devCount].minerals.platinum);
+            printf("Rhodium: ");  scanf("%f", &d[*devCount].minerals.rhodium);
+            printf("Nickel: ");   scanf("%f", &d[*devCount].minerals.nickel);
+            printf("Tin: ");      scanf("%f", &d[*devCount].minerals.tin);
+            printf("Lithium: ");  scanf("%f", &d[*devCount].minerals.lithium);
+
+            // Calculate total price based on market rates
+            calculateMinerals(&d[*devCount]);
+
+            // Append name to devices.txt
+            fprintf(fDevices, "\n%s", d[*devCount].deviceName);
+
+            // Append values to minerals.txt using the space-separated format
+            fprintf(fMinerals, "\n%f %f %f %f %f %f %f %f",
+                    d[*devCount].minerals.gold, d[*devCount].minerals.aluminum,
+                    d[*devCount].minerals.silver, d[*devCount].minerals.platinum,
+                    d[*devCount].minerals.rhodium, d[*devCount].minerals.nickel,
+                    d[*devCount].minerals.tin, d[*devCount].minerals.lithium);
+
+            printf("\nSuccessfully added '%s' (Value: $%.2f) to the system.\n",
+                    d[*devCount].deviceName, d[*devCount].price);
+
+            // Increment the global device counter
+            (*devCount)++;
+
+        }
+
+    }else {
+        printf("Error: Maximum device capacity reached. Cannot add more technology.\n");
+    }
+
+    fclose(fDevices);
+    fclose(fMinerals);
 }
 
 float calculateProfile(UserDevice *p, deviceInfo infoDatabase[], int deviceCount)
