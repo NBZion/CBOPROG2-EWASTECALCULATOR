@@ -81,7 +81,7 @@ void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
             case 3:
                 // Actually show inventory using displayDevice
                 accountValue = calculateProfile(&currentUserDevice, devices, deviceCount);
-                printf("\n%.2fphp inventory value.", accountValue); // Only for debugging, to be removed later when UI is implemented
+                printf("\n%.2f php inventory value.\n", accountValue); // Only for debugging, to be removed later when UI is implemented
                 break;
             case 4:
                 running = 'f';
