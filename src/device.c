@@ -14,6 +14,23 @@ void initializeDevices(deviceInfo d[],int *deviceCount, FILE *devices, FILE *min
 
 }
 
+float calculateProfile(UserDevice *p, deviceInfo infoDatabase[], int deviceCount)
+{
+    float accountValue;
+    for (int i = 0; i < 10; i++) // Loops through each of the user's devices
+    {
+        for (int j = 0; j < deviceCount; j++) // Loops through the entire database of devices
+        {
+            if (strcmp(p -> devices[i].deviceName, infoDatabase[j].deviceName) == 0) 
+            {
+                accountValue += infoDatabase[j].price;
+            }
+        }
+    }
+
+    return accountValue;
+}
+
 void calculateMinerals(deviceInfo *d)
 {
     float goldPrice, aluPrice, silPrice, platPrice, rhoPrice, nickPrice, tinPrice, lithPrice;
