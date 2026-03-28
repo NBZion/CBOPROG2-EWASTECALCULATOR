@@ -160,6 +160,8 @@ void run() {
         // Load Database
         loadFile(userDatabase, &currentUserCount, fopen("userdatabase.txt", "r"));
 
+        printf("E-WASTE SALVAGE & TOXICITY PREDICTOR\n");
+        printf("1 - Login\n2 - Register\n3 - Reset password\n4 - Exit\n@login - ");
         scanf("%d", &loginInput);
 
         switch(loginInput) {
