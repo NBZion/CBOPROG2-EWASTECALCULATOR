@@ -118,7 +118,6 @@ void displayUser(User user) {
 void resetUser(User database[], int size) {
     String userInput, securityInput;
     int userIndex = -1;
-    int correctSecurity = 0;
 
     printf("What is your Username?\n");
     scanf("%s", userInput);
