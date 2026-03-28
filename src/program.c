@@ -75,6 +75,8 @@ void pLoop(User currentUser)
                 saveDeviceFile(deviceDatabase, deviceDatabaseCount, fopen("devicedatabase.txt","w"));
                 break;
             case 3:
+                accountValue = calculateProfile(&currentUserDevice, devices, deviceCount);
+                printf("\n%.2fphp inventory value.", accountValue); // Only for debugging, to be removed later when UI is implemented
             case 4:
                 running = 'f';
                 break;
