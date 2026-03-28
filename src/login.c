@@ -167,7 +167,7 @@ void run() {
                 currentUser = loginUser(userDatabase, currentUserCount);
                 if(currentUser != -1) {
                     // Transition to main program loop if user is logged in
-                    pLoop(userDatabase[currentUser]);
+                    pLoop(userDatabase[currentUser],userDatabase, &currentUserCount);
                 }
                 break;
             case 2: // Register

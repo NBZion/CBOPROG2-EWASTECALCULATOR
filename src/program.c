@@ -15,7 +15,7 @@ int getCurrentDeviceDatabase(UserDevice database[], int size, String user) {
     return found;
 }
 
-void admin(User userDatabase[], deviceInfo deviceDatabase, int *userDatabaseSize, int *deviceDatabaseSize) {
+void admin(User userDatabase[], deviceInfo deviceDatabase[], int *userDatabaseSize, int *deviceDatabaseSize) {
 
 }
 void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
@@ -86,7 +86,7 @@ void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
                 break;
             case 5:
                 if(currentUser.admin == 't') {
-
+                    admin(userDatabase,devices, userDatabaseSize, &deviceCount);
                 }
                 break;
         }
