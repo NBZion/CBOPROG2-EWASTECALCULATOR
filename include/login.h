@@ -3,18 +3,22 @@
 
 #include <stdio.h>
 
+/* Constants for string limits and database size */
 #define STR_LEN 50
 #define MAX_USER 10
 
+/* Typedef for fixed-length strings used throughout the application */
 typedef char String[STR_LEN] ;
 
+/* Structure representing a user account and security credentials */
 typedef struct {
-    String user;
-    String password;
-    char admin; // t if true f if false
-    String securityAnswer;
+    String user;           // Account username
+    String password;       // Account password
+    char admin;            // Privilege level: 't' for true (Admin), 'f' for false
+    String securityAnswer; // Answer to security question (Favorite Color)
 } User;
 
+/* Function Prototypes for authentication and user administration */
 int loginUser(User database[], int size);
 void registerUser(User database[], int *size);
 void resetUser(User database[], int size);

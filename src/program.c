@@ -4,6 +4,7 @@
 #include "login.h"
 #include "devices.h"
 
+/* Finds the location of a specific user's inventory record in the global user-device database */
 int getCurrentDeviceDatabase(UserDevice database[], int size, String user) {
     int found = -1;
 
@@ -15,19 +16,21 @@ int getCurrentDeviceDatabase(UserDevice database[], int size, String user) {
     return found;
 }
 
+/* Administrative interface for managing the system's users and the global device definitions */
 void admin(User userDatabase[], deviceInfo deviceDatabase[], int *userDatabaseSize, int *deviceDatabaseSize) {
     int adminDecision;
     char running = 't';
 
     while(running == 't') {
 
-        // UI
+        // UI header
         printf("\n---------------- Admin Control -----------------");
         printf("\n\nWelcome Admin! What would you like to do?\n");
         printf("\n[1] Add User\n[2] Remove user\n[3] Edit User\n[4] Add Device to Info Database\n[5] Display User Database\n[6] Exit\n\nEnter number: ");
 
         scanf("%d", &adminDecision);
 
+        /* Refresh user data before performing operations */
         loadFile(userDatabase, userDatabaseSize, fopen("userdatabase.txt", "r"));
         switch(adminDecision) {
             case 1:
@@ -43,31 +46,33 @@ void admin(User userDatabase[], deviceInfo deviceDatabase[], int *userDatabaseSi
                 addInfoDevice(deviceDatabase, deviceDatabaseSize);
                 break;
             case 5:
+                /* Print details for every registered user */
                 for(int i=0; i<*userDatabaseSize;i++)
                     displayUser(userDatabase[i]);
                 break;
             case 6:
-                running='f';
+                running='f'; // Return to user dashboard
                 break;
         }
     }
 }
 
+/* Primary loop for logged-in users to interact with their salvaged e-waste inventory */
 void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
 {
-    // UI
+    // Dashboard greeting
     printf("\n-------------------- Dashboard ---------------------");
     printf("\n\nWelcome %s!\n\n", currentUser.user);
     float accountValue, lithiumAverage;
     UserDevice deviceDatabase[10];
     int deviceDatabaseCount;
 
-    // Create devicedatabase.txt if doesn't exist
+    // Ensure persistence file exists
     if(fopen("devicedatabase.txt","r") == NULL) {
         fopen("devicedatabase.txt","w");
     }
 
-    // Device initialization
+    // Load global device definitions and mineral data
     FILE *fDevices;
     FILE *fMinerals;
     fDevices = fopen("data/devices.txt", "r");
@@ -76,29 +81,29 @@ void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
     deviceInfo devices[MAX_DEVICES];
     int deviceCount = 0;
 
-    // Put contents of devices.txt and minerals.txt into struct
+    // Populate global device array and sort alphabetically
     initializeDevices(devices, &deviceCount, fDevices, fMinerals);
-    // Sort Devices to make Selections in add, remove devices easier
     sortDevices(devices, deviceCount);
 
-    // Metal calculations
+    // Calculate the value of all devices in the global database
     for (int j = 0; j < deviceCount; j++)
     {
         calculateMinerals(&devices[j]);
     }
 
-    // Load Device File to get current user
-
+    // Load user inventories from file
     loadDeviceFile(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
 
-    // Program Loop
+    // User Program Loop
     int deviceDecision;
     int currentUserIndex = getCurrentDeviceDatabase(deviceDatabase, deviceDatabaseCount, currentUser.user);
     UserDevice currentUserDevice = deviceDatabase[currentUserIndex];
     char running = 't';
     while(running == 't') {
+        /* Reload files to ensure current state is displayed */
         loadDeviceFile(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
-        // Maybe also add Device Dashboard here as print
+
+        // Print Personal Inventory Summary
         printf("----------------------------------------------------\n");
         printf("\nYou have %d devices in your inventory!\n",currentUserDevice.deviceCount);
         printf("----------------- Current Devices -----------------\n");
@@ -107,6 +112,8 @@ void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
         }
         printf("---------------------------------------------------\n");
         printf("Select one of the Following...\n\n[1] Add Device\n[2] Remove Device\n[3] View Inventory \n[4] Log Out\n");
+
+        /* Restricted menu option for Admin accounts */
         if(currentUser.admin == 't') {
             printf("[5] Admin\n");
         }
@@ -125,12 +132,13 @@ void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
                 saveDeviceFile(deviceDatabase, deviceDatabaseCount, fopen("devicedatabase.txt","w"));
                 break;
             case 3:
+                /* Profile view: shows total value and toxicity analysis */
                 accountValue = calculateProfile(&currentUserDevice, devices, deviceCount);
                 lithiumAverage = calculateToxicity(&currentUserDevice, devices, deviceCount);
                 displayProfile(accountValue, lithiumAverage);
                 break;
             case 4:
-                running = 'f';
+                running = 'f'; // Logout and return to run() menu
                 break;
             case 5:
                 if(currentUser.admin == 't') {

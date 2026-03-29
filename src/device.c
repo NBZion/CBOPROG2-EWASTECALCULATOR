@@ -2,10 +2,12 @@
 #include <string.h>
 #include "devices.h"
 
+/* Loads the global device and mineral data from external text files into the system array */
 void initializeDevices(deviceInfo d[],int *deviceCount, FILE *devices, FILE *minerals)
 {
     *deviceCount = 0;
 
+    /* Reads mineral values from minerals.txt and device names from devices.txt concurrently */
     while(fscanf(minerals, "%f %f %f %f %f %f %f %f", &d[*deviceCount].minerals.gold, &d[*deviceCount].minerals.aluminum, &d[*deviceCount].minerals.silver,&d[*deviceCount].minerals.platinum, &d[*deviceCount].minerals.rhodium, &d[*deviceCount].minerals.nickel, &d[*deviceCount].minerals.tin, &d[*deviceCount].minerals.lithium) != EOF) {
         fgets(d[*deviceCount].deviceName, 51, devices);                                    // Scans for device names
         d[*deviceCount].deviceName[strcspn(d[*deviceCount].deviceName, "\n")] = '\0';                     // Replaces newlines with nullbytes
@@ -14,7 +16,7 @@ void initializeDevices(deviceInfo d[],int *deviceCount, FILE *devices, FILE *min
 
 }
 
-// Sort Devices using Selection Sort
+/* Sorts the global device list alphabetically by name using the Selection Sort algorithm */
 void sortDevices(deviceInfo d[], int devCount) {
     int min;
     deviceInfo temp;
@@ -22,29 +24,33 @@ void sortDevices(deviceInfo d[], int devCount) {
     for(int i=0; i<devCount;i++) {
         min=i;
         for(int j=i+1; j< devCount; j++) {
+            /* Compare strings to find the lexicographically smallest name */
             if(strcmp(d[j].deviceName, d[min].deviceName) < 0) {
                 min=j;
             }
         }
 
+        /* Swap the found minimum element with the current element */
         temp = d[i];
         d[i] = d[min];
         d[min] =  temp;
     }
 }
+
+/* Administrative function to manually add a new device type to the persistent data files */
 void addInfoDevice(deviceInfo d[], int *devCount) {
     FILE *fDevices = fopen("data/devices.txt", "a");
     FILE *fMinerals = fopen("data/minerals.txt", "a");
     if(*devCount <= MAX_DEVICES) {
 
         if (fDevices != NULL || fMinerals != NULL) {
-            // Get Device Name
+            // Get Device Name from user input
             printf("Enter Device Name: ");
             getchar(); // Clear newline buffer from previous inputs
             fgets(d[*devCount].deviceName, 51, stdin);
             d[*devCount].deviceName[strcspn(d[*devCount].deviceName, "\n")] = '\0';
 
-            // Get Mineral Composition
+            // Get Mineral Composition from user input
             printf("Enter mineral content (in grams):\n");
             printf("Gold     : "); scanf("%f", &d[*devCount].minerals.gold);
             printf("Aluminum : "); scanf("%f", &d[*devCount].minerals.aluminum);
@@ -55,7 +61,7 @@ void addInfoDevice(deviceInfo d[], int *devCount) {
             printf("Tin      : "); scanf("%f", &d[*devCount].minerals.tin);
             printf("Lithium  : "); scanf("%f", &d[*devCount].minerals.lithium);
 
-            // Calculate total price based on market rates
+            // Calculate total price based on market rates defined in calculateMinerals
             calculateMinerals(&d[*devCount]);
 
             // Append name to devices.txt
@@ -84,13 +90,15 @@ void addInfoDevice(deviceInfo d[], int *devCount) {
     fclose(fMinerals);
 }
 
+/* Calculates the total monetary value of all devices in a user's inventory */
 float calculateProfile(UserDevice *p, deviceInfo infoDatabase[], int deviceCount)
 {
-    float accountValue;
+    float accountValue = 0.0; // Initialized to avoid garbage values
     for (int i = 0; i < 10; i++) // Loops through each of the user's devices
     {
         for (int j = 0; j < deviceCount; j++) // Loops through the entire database of devices
         {
+            /* Add value if user device name matches an entry in the global info database */
             if (strcmp(p -> devices[i].deviceName, infoDatabase[j].deviceName) == 0)
             {
                 accountValue += infoDatabase[j].price;
@@ -101,6 +109,7 @@ float calculateProfile(UserDevice *p, deviceInfo infoDatabase[], int deviceCount
     return accountValue;
 }
 
+/* Calculates the average lithium content across all devices in a user's inventory to determine toxicity */
 float calculateToxicity(UserDevice *p, deviceInfo infoDatabase[], int deviceCount)
 {
     float lithiumSum = 0.0;
@@ -118,21 +127,24 @@ float calculateToxicity(UserDevice *p, deviceInfo infoDatabase[], int deviceCoun
             }
         }
     }
-    
+
+    /* Avoid division by zero if inventory is empty */
     if (ctr != 0)
     {
         lithiumAverage = lithiumSum / ctr;
     }
-    
+
     return lithiumAverage;
 }
 
+/* Prints the inventory summary and assigns a toxicity category based on lithium levels */
 void displayProfile(float inventoryValue, float toxicityScore)
 {
     printf("\n-------------------- Profile Overview ---------------------\n");
     printf("\nYour inventory is valued at : %.2f php", inventoryValue);
     printf("\nAverage lithium content     : %.2f g", toxicityScore);
 
+    /* Toxicity thresholds and safety warnings */
     if (toxicityScore < 0.3)
     {
         printf("\n\nToxicity : Mild");
@@ -150,11 +162,13 @@ void displayProfile(float inventoryValue, float toxicityScore)
     printf("\n");
 }
 
+/* Updates the price of a device by multiplying mineral weights by current market rates */
 void calculateMinerals(deviceInfo *d)
 {
     float goldPrice, aluPrice, silPrice, platPrice, rhoPrice, nickPrice, tinPrice, lithPrice;
     float priceSum;
 
+    /* Fixed market rates per gram for various metals */
     goldPrice = d -> minerals.gold * 9753.76;
     aluPrice = d -> minerals.aluminum * 0.2;
     silPrice = d -> minerals.silver * 161.45;
@@ -168,6 +182,7 @@ void calculateMinerals(deviceInfo *d)
     d -> price = priceSum;
 }
 
+/* Searches the global database for a device name and returns its array index */
 int findDeviceIndex(deviceInfo info[], int infoCount, char *devName) {
     int found = -1;
 
@@ -181,6 +196,7 @@ int findDeviceIndex(deviceInfo info[], int infoCount, char *devName) {
     return found;
 }
 
+/* Populates a user's device slot with full mineral and price data from the global database */
 void fillDevice(UserDevice *userData, deviceInfo info[], int infoCount, int deviceIndex,char *deviceName) {
     // Find for Listed Device
     int infoDeviceIndex = findDeviceIndex(info, infoCount, deviceName);
@@ -195,12 +211,14 @@ void fillDevice(UserDevice *userData, deviceInfo info[], int infoCount, int devi
 
 }
 
-void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[], int infoCount,int *size, FILE *f) {
+/* Reads user-specific inventory data from devicedatabase.txt */
+void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[], int infoCount, int *size, FILE *f) {
     char buffer[512];
     int dCount;
 
     *size = 0;
 
+    /* Parse CSV-style format: Username,Device1,Device2... */
     while(fgets(buffer, sizeof(buffer),f) != NULL) {
 
         char *token = strtok(buffer,",");
@@ -209,6 +227,7 @@ void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[], int infoCo
 
         dCount=0;
 
+        /* Extract subsequent tokens as device names and fill their details */
         while((token = strtok(NULL, ",\n")) != NULL) {
             fillDevice(&database[*size], infoDatabase, infoCount, dCount, token);
             dCount++;
@@ -221,6 +240,7 @@ void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[], int infoCo
     fclose(f);
 }
 
+/* Saves all user inventory collections back to devicedatabase.txt in CSV format */
 void saveDeviceFile(UserDevice database[], int size, FILE *f) {
     if(f != NULL) {
         for(int i=0;i<size;i++) {
@@ -237,6 +257,7 @@ void saveDeviceFile(UserDevice database[], int size, FILE *f) {
     }
 }
 
+/* Prints detailed mineral composition and market value for a specific device */
 void displayDevice(deviceInfo device)  {
     printf("\n");
     printf("Displaying information for: %s\n\n", device.deviceName);
@@ -251,6 +272,7 @@ void displayDevice(deviceInfo device)  {
     printf("\nPrice    : %.2f php\n", device.price);
 }
 
+/* Allows a user to select a device from the global list and add it to their personal inventory */
 void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoCount) {
     int deviceDecision;
     // List Current Devices to Pick
@@ -264,7 +286,7 @@ void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoC
     printf("\nEnter device number: ");
     scanf("%d", &deviceDecision);
 
-    deviceDecision--;
+    deviceDecision--; // Adjust for 0-based indexing
 
 
     currentUser->devices[currentUser->deviceCount] = infoDatabase[deviceDecision];
@@ -272,6 +294,7 @@ void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoC
     currentUser->deviceCount++;
 }
 
+/* Removes a selected device from the user's inventory and shifts remaining items to fill the gap */
 void removeUserDevice(UserDevice *currentUser) {
     int deviceDecision;
     char deleteConfirmation;
@@ -296,7 +319,7 @@ void removeUserDevice(UserDevice *currentUser) {
     scanf(" %c", &deleteConfirmation);
 
     if(deleteConfirmation == 'y') {
-        // "Remove" Device
+        // "Remove" Device by shifting elements left
         for(int i=deviceDecision; i<currentUser->deviceCount; i++) {
             if(i+1 < currentUser->deviceCount) {
                 currentUser->devices[i] = currentUser->devices[i+1];

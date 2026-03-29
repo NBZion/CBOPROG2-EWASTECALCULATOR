@@ -4,8 +4,10 @@
 #include <stdio.h>
 #include <login.h>
 
+/* Maximum capacity for the global device database */
 #define MAX_DEVICES 200     // There are 100 devices in the dataset, which means that the admin can only add up to 100 more devices
 
+/* Structure to store the weights (in grams) of precious and industrial minerals in a device */
 typedef struct mineralType
 {
     float gold;
@@ -18,6 +20,7 @@ typedef struct mineralType
     float lithium;
 }mineralType;
 
+/* Structure representing a specific electronic device and its calculated value */
 typedef struct deviceInfo
 {
     char deviceName[51];    // Name of the device
@@ -25,12 +28,14 @@ typedef struct deviceInfo
     float price;            // Calculated price of minerals contained within the device
 }deviceInfo;
 
+/* Structure to associate a user with their collection of salvaged devices */
 typedef struct {
-    String name;
-    deviceInfo devices[10];
-    int deviceCount;
+    String name;            // The username of the owner
+    deviceInfo devices[10]; // List of devices in user's inventory (Max 10)
+    int deviceCount;        // Current number of devices owned
 } UserDevice;
 
+/* Function Prototypes for device management and calculations */
 void initializeDevices(deviceInfo d[],int *devCount, FILE *devices, FILE *minerals);
 void sortDevices(deviceInfo d[], int devCount);
 void addInfoDevice(deviceInfo d[], int *devCount);
