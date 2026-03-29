@@ -127,6 +127,29 @@ float calculateToxicity(UserDevice *p, deviceInfo infoDatabase[], int deviceCoun
     return lithiumAverage;
 }
 
+void displayProfile(float inventoryValue, float toxicityScore)
+{
+    printf("\n-------------------- Profile Overview ---------------------\n");
+    printf("\nYour inventory is valued at : %.2f php", inventoryValue);
+    printf("\nAverage lithium content     : %.2f g", toxicityScore);
+
+    if (toxicityScore < 0.3)
+    {
+        printf("\n\nToxicity : Mild");
+    }
+    else if (toxicityScore >= 0.3 && toxicityScore < 2.0)
+    {
+        printf("\n\nToxicity : Dangerous, unfit for regular disposal due to flammability.");
+    }
+    else if (toxicityScore >= 2.0)
+    {
+        printf("\n\nToxicity : Hazardous, avoid skin contact and handle with extreme caution.");
+    }
+
+
+    printf("\n");
+}
+
 void calculateMinerals(deviceInfo *d)
 {
     float goldPrice, aluPrice, silPrice, platPrice, rhoPrice, nickPrice, tinPrice, lithPrice;
