@@ -99,7 +99,14 @@ void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
     while(running == 't') {
         loadDeviceFile(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
         // Maybe also add Device Dashboard here as print
-        printf("\nYou have %d devices in your inventory!\nSelect one of the Following...\n\n[1] Add Device\n[2] Remove Device\n[3] View Inventory \n[4] Log Out\n", currentUserDevice.deviceCount);
+        printf("----------------------------------------------------\n");
+        printf("\nYou have %d devices in your inventory!\n",currentUserDevice.deviceCount);
+        printf("----------------- Current Devices -----------------\n");
+        for(int i=0;i<currentUserDevice.deviceCount;i++) {
+            printf("%s - %.2f php\n", currentUserDevice.devices[i].deviceName, currentUserDevice.devices[i].price);
+        }
+        printf("---------------------------------------------------\n");
+        printf("Select one of the Following...\n\n[1] Add Device\n[2] Remove Device\n[3] View Inventory \n[4] Log Out\n");
         if(currentUser.admin == 't') {
             printf("[5] Admin\n");
         }
