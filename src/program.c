@@ -58,7 +58,7 @@ void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
     // UI
     printf("\n-------------------- Dashboard ---------------------");
     printf("\n\nWelcome %s!\n\n", currentUser.user);
-    float accountValue;
+    float accountValue, lithiumAverage;
     UserDevice deviceDatabase[10];
     int deviceDatabaseCount;
 
@@ -118,9 +118,9 @@ void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
                 saveDeviceFile(deviceDatabase, deviceDatabaseCount, fopen("devicedatabase.txt","w"));
                 break;
             case 3:
-                // Actually show inventory using displayDevice
                 accountValue = calculateProfile(&currentUserDevice, devices, deviceCount);
-                printf("\n%.2f php inventory value.\n", accountValue); // Only for debugging, to be removed later when UI is implemented
+                lithiumAverage = calculateToxicity(&currentUserDevice, devices, deviceCount);
+                displayProfile(accountValue, lithiumAverage);
                 break;
             case 4:
                 running = 'f';
