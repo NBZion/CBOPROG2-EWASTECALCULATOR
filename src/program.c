@@ -76,6 +76,11 @@ void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
     deviceInfo devices[MAX_DEVICES];
     int deviceCount = 0;
 
+    // Put contents of devices.txt and minerals.txt into struct
+    initializeDevices(devices, &deviceCount, fDevices, fMinerals);
+    // Sort Devices to make Selections in add, remove devices easier
+    sortDevices(devices, deviceCount);
+
     // Metal calculations
     for (int j = 0; j < deviceCount; j++)
     {
@@ -92,11 +97,6 @@ void pLoop(User currentUser, User userDatabase[], int *userDatabaseSize)
     UserDevice currentUserDevice = deviceDatabase[currentUserIndex];
     char running = 't';
     while(running == 't') {
-        // Put contents of devices.txt and minerals.txt into struct
-        initializeDevices(devices, &deviceCount, fDevices, fMinerals);
-        // Sort Devices to make Selections in add, remove devices easier
-        sortDevices(devices, deviceCount);
-
         loadDeviceFile(deviceDatabase, devices, deviceCount, &deviceDatabaseCount, fopen("devicedatabase.txt","r"));
         // Maybe also add Device Dashboard here as print
         printf("\nYou have %d devices in your inventory!\nSelect one of the Following...\n\n[1] Add Device\n[2] Remove Device\n[3] View Inventory \n[4] Log Out\n", currentUserDevice.deviceCount);
