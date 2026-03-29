@@ -37,10 +37,7 @@ void addInfoDevice(deviceInfo d[], int *devCount) {
     FILE *fMinerals = fopen("data/minerals.txt", "a");
     if(*devCount <= MAX_DEVICES) {
 
-        if (fDevices == NULL || fMinerals == NULL) {
-            printf("Error: Could not open database files for updating.\n");
-        }else {
-
+        if (fDevices != NULL || fMinerals != NULL) {
             // Get Device Name
             printf("Enter Device Name: ");
             getchar(); // Clear newline buffer from previous inputs
