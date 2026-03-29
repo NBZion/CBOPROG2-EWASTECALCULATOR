@@ -14,6 +14,24 @@ void initializeDevices(deviceInfo d[],int *deviceCount, FILE *devices, FILE *min
 
 }
 
+// Sort Devices using Selection Sort
+void sortDevices(deviceInfo d[], int devCount) {
+    int min;
+    deviceInfo temp;
+
+    for(int i=0; i<devCount;i++) {
+        min=i;
+        for(int j=i+1; j< devCount; j++) {
+            if(strcmp(d[j].deviceName, d[min].deviceName) < 0) {
+                min=j;
+            }
+        }
+
+        temp = d[i];
+        d[i] = d[min];
+        d[min] =  temp;
+    }
+}
 void addInfoDevice(deviceInfo d[], int *devCount) {
     FILE *fDevices = fopen("data/devices.txt", "a");
     FILE *fMinerals = fopen("data/minerals.txt", "a");
