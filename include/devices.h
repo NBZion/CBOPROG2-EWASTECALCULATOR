@@ -34,6 +34,8 @@ typedef struct {
 void initializeDevices(deviceInfo d[],int *devCount, FILE *devices, FILE *minerals);
 void sortDevices(deviceInfo d[], int devCount);
 void addInfoDevice(deviceInfo d[], int *devCount);
+void displayProfile(float inventoryValue, float toxicityScore);
+float calculateToxicity(UserDevice *p, deviceInfo infoDatabase[], int deviceCount);
 void calculateMinerals(deviceInfo *d);
 float calculateProfile(UserDevice *p, deviceInfo infoDatabase[], int deviceCount);
 void loadDeviceFile(UserDevice database[], deviceInfo infoDatabase[],int infoCount,int *size, FILE *f);
