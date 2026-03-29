@@ -31,14 +31,14 @@ void addInfoDevice(deviceInfo d[], int *devCount) {
 
             // Get Mineral Composition
             printf("Enter mineral content (in grams):\n");
-            printf("Gold: ");     scanf("%f", &d[*devCount].minerals.gold);
-            printf("Aluminum: "); scanf("%f", &d[*devCount].minerals.aluminum);
-            printf("Silver: ");   scanf("%f", &d[*devCount].minerals.silver);
-            printf("Platinum: "); scanf("%f", &d[*devCount].minerals.platinum);
-            printf("Rhodium: ");  scanf("%f", &d[*devCount].minerals.rhodium);
-            printf("Nickel: ");   scanf("%f", &d[*devCount].minerals.nickel);
-            printf("Tin: ");      scanf("%f", &d[*devCount].minerals.tin);
-            printf("Lithium: ");  scanf("%f", &d[*devCount].minerals.lithium);
+            printf("Gold     : "); scanf("%f", &d[*devCount].minerals.gold);
+            printf("Aluminum : "); scanf("%f", &d[*devCount].minerals.aluminum);
+            printf("Silver   : "); scanf("%f", &d[*devCount].minerals.silver);
+            printf("Platinum : "); scanf("%f", &d[*devCount].minerals.platinum);
+            printf("Rhodium  : "); scanf("%f", &d[*devCount].minerals.rhodium);
+            printf("Nickel   : "); scanf("%f", &d[*devCount].minerals.nickel);
+            printf("Tin      : "); scanf("%f", &d[*devCount].minerals.tin);
+            printf("Lithium  : "); scanf("%f", &d[*devCount].minerals.lithium);
 
             // Calculate total price based on market rates
             calculateMinerals(&d[*devCount]);
@@ -47,7 +47,7 @@ void addInfoDevice(deviceInfo d[], int *devCount) {
             fprintf(fDevices, "\n%s", d[*devCount].deviceName);
 
             // Append values to minerals.txt using the space-separated format
-            fprintf(fMinerals, "\n%f %f %f %f %f %f %f %f",
+            fprintf(fMinerals, "\n%.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f",
                     d[*devCount].minerals.gold, d[*devCount].minerals.aluminum,
                     d[*devCount].minerals.silver, d[*devCount].minerals.platinum,
                     d[*devCount].minerals.rhodium, d[*devCount].minerals.nickel,
@@ -174,19 +174,17 @@ void saveDeviceFile(UserDevice database[], int size, FILE *f) {
 }
 
 void displayDevice(deviceInfo device)  {
-    printf("INFORMATION\n");
-    printf("Name: %s\n", device.deviceName);
-    printf("Contained Minerals: \n");
-    printf("Gold: %f \n", device.minerals.gold);
-    printf("Aluminum: %f\n", device.minerals.aluminum);
-    printf("Silver: %f\n", device.minerals.silver);
-    printf("Platinum: %f\n",device.minerals.platinum);
-    printf("Rhodium: %f\n",device.minerals.rhodium);
-    printf("Nicket: %f\n",device.minerals.nickel);
-    printf("Tin: %f\n",device.minerals.tin);
-    printf("Lithium: %f\n", device.minerals.lithium);
-
-    printf("\nPrice: %.2f\n", device.price);
+    printf("\n");
+    printf("Displaying information for: %s\n\n", device.deviceName);
+    printf("Gold     : %.2f g\n", device.minerals.gold);
+    printf("Aluminum : %.2f g\n", device.minerals.aluminum);
+    printf("Silver   : %.2f g\n", device.minerals.silver);
+    printf("Platinum : %.2f g\n",device.minerals.platinum);
+    printf("Rhodium  : %.2f g\n",device.minerals.rhodium);
+    printf("Nicket   : %.2f g\n",device.minerals.nickel);
+    printf("Tin      : %.2f g\n",device.minerals.tin);
+    printf("Lithium  : %.2f g\n", device.minerals.lithium);
+    printf("\nPrice    : %.2f php\n", device.price);
 }
 
 void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoCount) {
@@ -199,7 +197,7 @@ void addUserDevice(UserDevice *currentUser, deviceInfo infoDatabase[], int infoC
     }
     printf("\n");
 
-    printf("Pick a number(1-100) to pick a device to add to inventory...\n@add - ");
+    printf("\nEnter device number: ");
     scanf("%d", &deviceDecision);
 
     deviceDecision--;
@@ -214,6 +212,7 @@ void removeUserDevice(UserDevice *currentUser) {
     int deviceDecision;
     char deleteConfirmation;
     // List Current Devices in current User's device array
+    printf("\n-------------------- Device Removal ---------------------\n\n");
     for(int i=0; i<currentUser->deviceCount; i++) {
         printf("%3d: %20.20s ", i+1, currentUser->devices[i].deviceName);
         if(((i+1)%2) == 0)  printf("\n");
@@ -221,12 +220,15 @@ void removeUserDevice(UserDevice *currentUser) {
     }
 
     printf("\n");
-    printf("Pick a number to choose device to remove from inventory...\n@remove - ");
+    printf("\nEnter device number: ");
     scanf("%d", &deviceDecision);
 
     deviceDecision--;
     displayDevice(currentUser->devices[deviceDecision]);
-    printf("\nAre you sure you want to remove %s?(y/n)\n", currentUser->devices[deviceDecision].deviceName);
+    printf("\nAre you sure you want to remove %s?\n", currentUser->devices[deviceDecision].deviceName);
+    printf("\n[y] Yes ");
+    printf("\n[n] No ");
+    printf("\n\nEnter letter (lowercase): ");
     scanf(" %c", &deleteConfirmation);
 
     if(deleteConfirmation == 'y') {
