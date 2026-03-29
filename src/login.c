@@ -10,7 +10,9 @@ int loginUser(User database[], int size) {
     int userIndex = -1;
     int correctPassword = 0;
 
-    printf("What is your Username?\n");
+    // UI 
+    printf("\n-------------------- User Login --------------------");
+    printf("\n\nUsername: ");
     scanf("%s", userInput);
     // Search for Username
     for(int i=0; i<size; i++) {
@@ -26,10 +28,10 @@ int loginUser(User database[], int size) {
         if(strcmp(database[userIndex].password, passwordInput) == 0) {
             correctPassword=1;
         }else {
-            printf("Incorrect Password\n");
+            printf("\nNOTICE: Incorrect password.\n");
         }
     }else {
-        printf("Username Not Found\n");
+        printf("\nNOTICE: Username not found.\n");
     }
 
     if(correctPassword) {
@@ -44,14 +46,17 @@ void removeUser(User database[], int *size) {
     char removeConfirmation;
     // List Users
     for(int i=0; i<*size;i++) {
-        printf("%d - %s\n", i+1, database[i].user);
+        printf("\n[%d] %s", i+1, database[i].user);
     }
 
-    printf("Who would you like to remove?\n@admin/remove - ");
+    printf("\n\nWho would you like to remove?\n\nEnter user number: ");
     scanf("%d", &removeDecision);
 
     removeDecision--;
-    printf("Are you sure you want to remove %s?(y/n)\n@admin/remove - ", database[removeDecision].user);
+    printf("\nAre you sure you want to remove %s?\n", database[removeDecision].user);
+    printf("\n[y] Yes");
+    printf("\n[n] No\n");
+    printf("\nEnter letter (lowercase): ");
     scanf(" %c", &removeConfirmation);
 
     if(removeConfirmation == 'y') {
@@ -73,16 +78,17 @@ void editUser(User database[], int size) {
     String tempInput;
     char tempCInput;
     // List Users
+    printf("\n-------------------- User Database ---------------------\n");
     for(int i=0;i<size;i++) {
-        printf("%d - %s\n", i+1, database[i].user);
+        printf("\n[%d] %s", i+1, database[i].user);
     }
 
-    printf("Which user do you want to edit?\n@admin/edit - ");
+    printf("\n\nEnter user number: ");
     scanf("%d", &userDecision);
 
     userDecision--;
 
-    printf("What do you wanna edit?\n1 - Username\n2 - Password\n3 - Admin\n4 - Security Answer\n@admin/edit - ");
+    printf("\nWhat do you wanna edit?\n\n[1] Username\n[2] Password\n[3] Admin\n[4] Security Answer\n\nEnter number: ");
     scanf("%d", &editDecision);
 
     switch(editDecision) {
@@ -112,7 +118,7 @@ void editUser(User database[], int size) {
 }
 
 void displayUser(User user) {
-    printf("User: %s Password:%s Admin:%c SecurityAnswer:%s\n", user.user, user.password, user.admin, user.securityAnswer);
+    printf("User: %s\nPassword: %s\nAdmin: %c\nSecurity answer: %s\n", user.user, user.password, user.admin, user.securityAnswer);
 }
 
 void resetUser(User database[], int size) {
@@ -139,10 +145,10 @@ void resetUser(User database[], int size) {
             printf("Password changed succesfully!\n");
             saveFile(database, size, fopen("userdatabase.txt", "w"));
         }else {
-            printf("Incorrect Security\n");
+            printf("\nNOTICE: Incorrect Security\n");
         }
     }else {
-        printf("Username Not Found\n");
+        printf("\nNOTICE: Username Not Found\n");
     }
 }
 
@@ -150,7 +156,8 @@ void registerUser(User database[], int *size) {
     String userInput, passwordInput, securityInput;
     char foundUser = 'f';
 
-    printf("Input New User: ");
+    printf("\n------------------ User Register -------------------");
+    printf("\n\nRegister username: ");
     scanf("%s", userInput);
     // Check if user already Exists
     for(int i=0; i<*size; i++) {
@@ -160,10 +167,10 @@ void registerUser(User database[], int *size) {
     }
 
     if(foundUser == 'f') {
-        printf("Input New Password: ");
+        printf("Register password: ");
         scanf("%s", passwordInput);
 
-        printf("What is your favorite color?(this will be used for the answer of the security question): ");
+        printf("\n(SECURITY) Enter your favorite color: ");
         scanf("%s", securityInput);
 
         // Update Database
@@ -181,7 +188,7 @@ void registerUser(User database[], int *size) {
         (*size)++;
         saveFile(database, *size, fopen("userdatabase.txt", "w"));
     }else {
-        printf("User already Exists in Database");
+        printf("\nNOTICE: User already Exists in Database!");
     }
 }
 
@@ -235,8 +242,9 @@ void run() {
         // Load Database
         loadFile(userDatabase, &currentUserCount, fopen("userdatabase.txt", "r"));
 
-        printf("E-WASTE SALVAGE & TOXICITY PREDICTOR\n");
-        printf("1 - Login\n2 - Register\n3 - Reset password\n4 - Exit\n@login - ");
+        //UI
+        printf("\n------- E-Waste Salvage & Toxicity Predictor -------\n\n");
+        printf("[1] Login\n[2] Register\n[3] Reset password\n[4] Exit\n\nEnter number: ");
         scanf("%d", &loginInput);
 
         switch(loginInput) {
